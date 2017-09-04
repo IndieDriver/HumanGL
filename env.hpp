@@ -1,6 +1,7 @@
 #pragma once
 #include <OpenGL/gl3.h>
 #include <SDL.h>
+#include <iostream>
 
 class Env {
 	public:
@@ -9,5 +10,6 @@ class Env {
 		virtual ~Env(void);
 		Env & operator=(Env const & rhs);
 		SDL_Window *window;
-		SDL_Renderer *renderer;
+		SDL_GLContext glContext;
+		SDL_Event sdlEvent;
 };
