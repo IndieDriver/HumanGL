@@ -31,5 +31,23 @@
 *.out
 *.app
 
+# misc
+.*.sw?
+.netrwhist
+
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.com.apple.*
+*.dSYM
+Thumbs.db
+
+# cmake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+cmake_install.cmake
+
 Makefile
 HumanGL
