@@ -13,7 +13,8 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(SOURCE_FILES
 	main.cpp
 	Vec.cpp
-	Matrix.cpp)
+	Matrix.cpp
+	Shader.cpp)
 
 add_executable(HumanGL ${SOURCE_FILES})
 
