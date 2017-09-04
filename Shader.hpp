@@ -1,7 +1,9 @@
-#ifndef PARTICLESYSTEM_SHADER_H
-#define PARTICLESYSTEM_SHADER_H
-
-#include "part.h"
+#pragma once
+#include <OpenGL/gl3.h>
+#include <SDL.h>
+#include <string>
+#include <iostream>
+#include <fstream>
 
 class Shader {
 public:
@@ -18,5 +20,3 @@ private:
 
 void    printShaderError(GLuint shade, std::string filename);
 void    printLinkError(GLuint program, std::string vextexFilename, std::string fragmentFilename);
-
-#endif //PARTICLESYSTEM_SHADER_H

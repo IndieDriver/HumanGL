@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "Shader.hpp"
 
 Shader::Shader(std::string fragmentFilename, std::string vertexFilename) {
     GLuint  vertexID;
