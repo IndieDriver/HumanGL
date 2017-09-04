@@ -1,9 +1,8 @@
 #pragma once
-#include <OpenGL/gl3.h>
-#include <SDL.h>
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "env.hpp"
 
 class Shader {
 public:

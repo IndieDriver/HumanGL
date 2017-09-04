@@ -13,6 +13,7 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 set(SOURCE_FILES
 	main.cpp
+	env.cpp
 	Vec.cpp
 	Matrix.cpp
 	Shader.cpp)
