@@ -19,7 +19,8 @@ set(SOURCE_FILES
 	Shader.cpp
 	Model.cpp
 	Membre.cpp
-	Animation.cpp)
+	Animation.cpp
+	)
 
 add_executable(HumanGL ${SOURCE_FILES})
 
