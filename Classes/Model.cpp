@@ -47,6 +47,8 @@ void	Model::draw(const Shader &shader) {
 	for (int i = 0; i < membres.size(); ++i)
 	{
 		bones[i] = modelMatrix(membres[i].transform);
+		printMatrix(bones[i].mat4);
+
 	}
 
 	Matrix MVP = getMVP(model, view, projection);

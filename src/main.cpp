@@ -11,7 +11,7 @@ std::vector<Vertex> data = {
 int main(int argc, char *argv[]) {
 
 	Env env(1280, 720);
-	Shader shader("shader.frag", "shader.vert");
+	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
 	Model model(data);
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_w)
 			{
-				model.membres[0].transform.position.z += 10;	
+				model.membres[0].transform.position.z += 10;
 			}
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
