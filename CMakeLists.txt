@@ -18,7 +18,8 @@ set(SOURCE_FILES
 	Matrix.cpp
 	Shader.cpp
 	Model.cpp
-	Membre.cpp)
+	Membre.cpp
+	Animation.cpp)
 
 add_executable(HumanGL ${SOURCE_FILES})
 

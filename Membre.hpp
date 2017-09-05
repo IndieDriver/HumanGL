@@ -3,6 +3,7 @@
 #include "struct.hpp"
 #include "Vec.hpp"
 #include "Matrix.hpp"
+#include "Animation.hpp"
 
 class Membre;
 
@@ -25,4 +26,5 @@ class Membre {
 		Transform				transform;
 
 		void applyTransform(Membre *parent);
+		Animation				animation;
 };
