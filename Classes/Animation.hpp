@@ -2,6 +2,7 @@
 #include <vector>
 #include "Vec.hpp"
 #include "env.hpp"
+#include "struct.hpp"
 
 struct KeyFrame {
 	int			frame;

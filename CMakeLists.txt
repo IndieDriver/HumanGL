@@ -8,18 +8,20 @@ find_package(SDL2 REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${OPENGL_INCLUDE_DIR})
+include_directories(Classes)
+include_directories(include)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 set(SOURCE_FILES
-	main.cpp
-	env.cpp
-	Vec.cpp
-	Matrix.cpp
-	Shader.cpp
-	Model.cpp
-	Membre.cpp
-	Animation.cpp
+	src/main.cpp
+	Classes/env.cpp
+	Classes/Vec.cpp
+	Classes/Matrix.cpp
+	Classes/Shader.cpp
+	Classes/Model.cpp
+	Classes/Membre.cpp
+	Classes/Animation.cpp
 	)
 
 add_executable(HumanGL ${SOURCE_FILES})
