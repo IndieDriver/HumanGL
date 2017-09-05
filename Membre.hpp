@@ -3,6 +3,7 @@
 #include "Model.hpp"
 #include "Vec.hpp"
 #include "Matrix.hpp"
+#include "Animation.hpp"
 
 class Membre;
 
@@ -22,4 +23,5 @@ class Membre {
 		Vec3					origin;
 		Matrix					transform;
 		void applyTransform(Membre *parent);
+		Animation				animation;
 };
