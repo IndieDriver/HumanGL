@@ -23,5 +23,6 @@ class Animation {
 		uint32_t	_nextIndex;				//Next index in keyFrame vector
 		uint32_t	_stepBeforeNextFrame; 	//Remaining step before next frame
 
-		Transform interpolate(Transform currentTransform, Transform targetTransform, int step);
+		Transform interpolate(Transform currentTransform,
+				Transform targetTransform, int step);
 };

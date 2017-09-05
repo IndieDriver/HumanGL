@@ -14,6 +14,18 @@ int main(int argc, char *argv[]) {
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
 	Model model(data);
+	KeyFrame keyFrame1 = {0, {{0.0f, 0.0f, 0.0f},
+							{0.0f, 0.0f, 0.0f},
+							{1.0f, 1.0f, 1.0f}}};
+	KeyFrame keyFrame2 = {42, {{1.0f, 1.0f, 0.0f},
+							{0.0f, 0.0f, 0.0f},
+							{1.0f, 1.0f, 1.0f}}};
+	KeyFrame keyFrame3 = {84, {{0.0f, 0.0f, 0.0f},
+							{0.0f, 0.0f, 0.0f},
+							{1.0f, 1.0f, 1.0f}}};
+	model.membres[0].animation.keyFrames.push_back(keyFrame1);
+	model.membres[0].animation.keyFrames.push_back(keyFrame2);
+	model.membres[0].animation.keyFrames.push_back(keyFrame3);
 
 	while (!quit) {
 		if (SDL_PollEvent(&env.sdlEvent) != 0) {

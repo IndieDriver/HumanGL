@@ -60,6 +60,8 @@ public:
     Vec3    operator/(const float &rhs);
 };
 
+Vec3	operator* (float x, const Vec3& y);
+
 Vec3	normalize(const Vec3 &rhs);
 Vec3	vec_scale(Vec3 v1, float fact);
 float	distance(Vec3 pt1, Vec3 pt2);

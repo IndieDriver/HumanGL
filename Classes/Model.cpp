@@ -43,11 +43,11 @@ void	Model::draw(const Shader &shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader.use();
 
+	membres[0].applyTransform(nullptr);
 	std::array<Matrix, 5> bones;
 	for (int i = 0; i < membres.size(); ++i)
 	{
 		bones[i] = modelMatrix(membres[i].transform);
-		printMatrix(bones[i].mat4);
 
 	}
 

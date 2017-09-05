@@ -30,6 +30,7 @@ Transform	Animation::updateTransform(Transform transform) {
 		this->_lastAnimUpdate = current_time;
 		transform = interpolate(transform, keyFrames[this->_nextIndex].transform,
 				keyFrames[this->_nextIndex].frame - _frameCount);
+		std::cout << keyFrames[this->_nextIndex].frame << " | " << this->_frameCount << std::endl;
 		if (keyFrames[this->_nextIndex].frame == this->_frameCount) {
 			if (_nextIndex + 1 < keyFrames.size()) {
 				_nextIndex++;
@@ -44,9 +45,15 @@ Transform	Animation::updateTransform(Transform transform) {
 }
 
 Transform	Animation::interpolate(Transform currentTransform, Transform targetTransform, int step) {
+	if (step == 0)
+		return (currentTransform);
 	Transform newTransform = currentTransform;
-	// v0 + t * (v1 - v0); lerp
-	newTransform.position = (currentTransform.position + (1.0f / step))
-		* (targetTransform.position - currentTransform.position);
+	//(1 - t) * v0 + t * v1; lerp
+	newTransform.position = (1.0f - (1.0f / (float)step)) * currentTransform.position
+		+ (1.0f / (float)step) * targetTransform.position;
+	/*
+	newTransform.position = (currentTransform.position + (1.0f / (float)step))
+		* (targetTransform.position - currentTransform.position); */
+	newTransform.position.print();
 	return (newTransform);
 }

@@ -20,7 +20,10 @@ Membre &	Membre::operator=(Membre const & rhs) {
 }
 
 void 	Membre::applyTransform(Membre *parent) {
+	transform = animation.updateTransform(transform);
+
 	if (parent != nullptr) {
+
 		//transform = transform * parent->transform; //a decomposer
 	}
 	for (Child & children : childrens) {
