@@ -25,6 +25,8 @@ class Model {
 		Matrix	view;
 		Matrix	projection;
 
+		bool toSee = false;
+
 
 	private:
 		int		_nb_vertex;

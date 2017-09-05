@@ -43,17 +43,17 @@ void	Model::draw(const Shader &shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader.use();
 
+	Matrix MVP = getMVP(model, viewMatrix({-1,0,0}, {0,0,0}, {0,1,0}), projMatrix(60, 1));
 	std::array<Matrix, 5> bones;
+	if (toSee)
+	{
+		printMatrix(MVP.mat4);
+		toSee = false;
+	}
 	for (int i = 0; i < membres.size(); ++i)
 	{
 		bones[i] = modelMatrix(membres[i].transform);
-		printMatrix(bones[i].mat4);
-
 	}
-
-	Matrix MVP = getMVP(model, view, projection);
-
-
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
 

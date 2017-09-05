@@ -40,7 +40,7 @@ void Matrix::set_identity()
     mat4[15] = 1.0f;
 }
 
-void	Matrix::transpose() {
+void Matrix::transpose() {
     float tmp;
     int i;
     int j;
@@ -426,7 +426,7 @@ Matrix projMatrix(float fov, float ratio)
     float	frustum;
 
     n = 0.1f;
-    f = 100.0f;
+    f = 1000.0f;
     frustum = n - f;
     mat.set_identity();
     // NOT RAD
@@ -457,6 +457,7 @@ void printMatrix(float array[16])
 }
 
 Matrix  getMVP(Matrix model, Matrix view, Matrix proj) {
-	Matrix tmp = proj * view * model;
+	Matrix tmp = proj * view;
+    tmp = tmp * model;
 	return (tmp);
 }
