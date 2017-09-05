@@ -1,5 +1,6 @@
 #include "Model.hpp"
 
+
 Model::Model(std::vector<Vertex> vert) {
 	this->vertices = vert;
 	GLuint	vbo; //One per vertex field
@@ -41,8 +42,21 @@ Model &	Model::operator=(Model const & rhs) {
 void	Model::draw(const Shader &shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader.use();
-	Matrix mvp = getMVP(model, view, projection);
-	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&mvp.mat4);
+
+	std::array<Matrix, 5> bones;
+	for (int i = 0; i < membres.size(); ++i)
+	{
+		bones[i] = modelMatrix(membres[i].transform);
+	}
+
+	Matrix MVP = getMVP(model, view, projection);
+
+
+
+	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
+
+	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 5, GL_FALSE, (const GLfloat*)&bones[0]);
+
 	glBindVertexArray(this->_vao);
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 }

@@ -62,14 +62,10 @@ Vec4 Matrix::operator*(const Vec4 &rhs) {
 
 	Vec4 result;
 
-    result.x = (mat4[0] * rhs.x) + (mat4[4] * rhs.y)
-            + (mat4[8] * rhs.z) + (mat4[12] * rhs.w);
-    result.y = (mat4[1] * rhs.x) + (mat4[5] * rhs.y)
-            + (mat4[9] * rhs.z) + (mat4[13] * rhs.w);
-    result.z = (mat4[2] * rhs.x) + (mat4[6] * rhs.y)
-            + (mat4[10] * rhs.z) + (mat4[14] * rhs.w);
-    result.w = (mat4[3] * rhs.x) + (mat4[7] * rhs.y)
-            + (mat4[11] * rhs.z) + (mat4[15] * rhs.w);
+    result.x = (mat4[0] * rhs.x) + (mat4[4] * rhs.y) + (mat4[8] * rhs.z) + (mat4[12] * rhs.w);
+    result.y = (mat4[1] * rhs.x) + (mat4[5] * rhs.y) + (mat4[9] * rhs.z) + (mat4[13] * rhs.w);
+    result.z = (mat4[2] * rhs.x) + (mat4[6] * rhs.y) + (mat4[10] * rhs.z) + (mat4[14] * rhs.w);
+    result.w = (mat4[3] * rhs.x) + (mat4[7] * rhs.y) + (mat4[11] * rhs.z) + (mat4[15] * rhs.w);
 	return (result);
 }
 
@@ -241,30 +237,61 @@ Matrix  scaleMatrix(float x, float y, float z)
     return (m);
 }
 
+Matrix  scaleMatrix(Vec3 scale)
+{
+    Matrix m;
+
+    m.set_identity();
+    m.mat4[0]  = scale.x;
+    m.mat4[5]  = scale.y;
+    m.mat4[10] = scale.z;
+    return (m);
+}
+
 Matrix	rotMatrix(float rot_x, float rot_y, float rot_z)
 {
     Matrix mat;
-    float a;
-    float b;
-    float c;
-    float d;
-    float e;
+    float cosX = cos(rot_x);
+    float cosY = cos(rot_y);
+    float cosZ = cos(rot_z);
+    float sinX = sin(rot_x);
+    float sinY = sin(rot_y);
+    float sinZ = sin(rot_x);
 
     mat.set_identity();
-    a = cos(rot_x);
-    b = sin(rot_x);
-    c = cos(rot_y);
-    d = sin(rot_y);
-    e = cos(rot_z);
-    mat.mat4[0] = c * e;
-    mat.mat4[1] = -c * sin(rot_z);
-    mat.mat4[2] = d;
-    mat.mat4[4] = (b * d) * e + a * sin(rot_z);
-    mat.mat4[5] = -(b * d) * sin(rot_z) + a * e;
-    mat.mat4[6] = -b * c;
-    mat.mat4[8] = -(a * d) * e + b * sin(rot_z);
-    mat.mat4[9] = (a * d) * sin(rot_z) + b * e;
-    mat.mat4[10] = a * c;
+    mat.mat4[0] = cosY * cosZ;
+    mat.mat4[1] = -cosY *  sinZ ;
+    mat.mat4[2] = sinY;
+    mat.mat4[4] = sinX * sinY * cosZ + cosX *  sinZ ;
+    mat.mat4[5] = -(sinX * sinY) *  sinZ  + cosX * cosZ;
+    mat.mat4[6] = -sinX * cosY;
+    mat.mat4[8] = -(cosX * sinY) * cosZ + sinX *  sinZ ;
+    mat.mat4[9] = cosX * sinY *  sinZ  + sinX * cosZ;
+    mat.mat4[10] = cosX * cosY;
+    mat.mat4[15] = 1.0f;
+    return (mat);
+}
+
+Matrix	rotMatrix(Vec3 rot)
+{
+    Matrix mat;
+    float cosX = cos(rot.x);
+    float cosY = cos(rot.y);
+    float cosZ = cos(rot.z);
+    float sinX = sin(rot.x);
+    float sinY = sin(rot.y);
+    float sinZ = sin(rot.x);
+
+    mat.set_identity();
+    mat.mat4[0] = cosY * cosZ;
+    mat.mat4[1] = -cosY *  sinZ ;
+    mat.mat4[2] = sinY;
+    mat.mat4[4] = sinX * sinY * cosZ + cosX *  sinZ ;
+    mat.mat4[5] = -(sinX * sinY) *  sinZ  + cosX * cosZ;
+    mat.mat4[6] = -sinX * cosY;
+    mat.mat4[8] = -(cosX * sinY) * cosZ + sinX *  sinZ ;
+    mat.mat4[9] = cosX * sinY *  sinZ  + sinX * cosZ;
+    mat.mat4[10] = cosX * cosY;
     mat.mat4[15] = 1.0f;
     return (mat);
 }
@@ -283,6 +310,20 @@ Matrix	transMatrix(float x, float y, float z)
     return (mat);
 }
 
+Matrix	transMatrix(Vec3 trans)
+{
+    Matrix mat;
+
+    mat.mat4[0] = 1.0f;
+    mat.mat4[5] = 1.0f;
+    mat.mat4[10] = 1.0f;
+    mat.mat4[15] = 1.0f;
+    mat.mat4[12] = trans.x;
+    mat.mat4[13] = trans.y;
+    mat.mat4[14] = trans.z;
+    return (mat);
+}
+
 Matrix	modelMatrix(Vec3 pos, Vec3 rot, Vec3 scale)
 {
     //ROT MUST BE IN RAD !!
@@ -297,6 +338,25 @@ Matrix	modelMatrix(Vec3 pos, Vec3 rot, Vec3 scale)
     mrot = rotMatrix(fmod(rot.x, 360.0f), fmod(rot.y, 360.0f), fmod(rot.z, 360.0f));
     mtran = transMatrix(pos.x, pos.y, pos.z);
     mscale = scaleMatrix(scale.x, scale.y, scale.z);
+	tmp = mscale * mrot;
+	model = tmp * mtran;
+    return (model);
+}
+
+Matrix	modelMatrix(Transform transform)
+{
+    //ROT MUST BE IN RAD !!
+    Matrix mtran;
+    Matrix mrot;
+    Matrix mscale;
+    Matrix tmp;
+    Matrix model;
+
+    model.init_matrix();
+    //TODO: FIXME
+    mrot = rotMatrix(transform.rotation);
+    mtran = transMatrix(transform.position);
+    mscale = scaleMatrix(transform.scale);
 	tmp = mscale * mrot;
 	model = tmp * mtran;
     return (model);

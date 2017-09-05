@@ -2,7 +2,6 @@
 
 Membre::Membre(void) {
 	origin = Vec3();
-	transform = Matrix();
 }
 
 Membre::Membre(Membre const & src) {
@@ -22,7 +21,7 @@ Membre &	Membre::operator=(Membre const & rhs) {
 
 void 	Membre::applyTransform(Membre *parent) {
 	if (parent != nullptr) {
-		transform = transform * parent->transform; //a decomposer
+		//transform = transform * parent->transform; //a decomposer
 	}
 	for (Child & children : childrens) {
 		children.membre->applyTransform(this);

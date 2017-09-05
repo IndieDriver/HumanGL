@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Model.hpp"
+#include "struct.hpp"
 #include "Vec.hpp"
 #include "Matrix.hpp"
 
@@ -17,9 +17,12 @@ class Membre {
 		Membre(Membre const & src);
 		virtual ~Membre(void);
 		Membre & operator=(Membre const & rhs);
+
 		std::vector<Child>		childrens;
 		std::vector<Vertex>		vertices;
 		Vec3					origin;
-		Matrix					transform;
+
+		Transform				transform;
+
 		void applyTransform(Membre *parent);
 };

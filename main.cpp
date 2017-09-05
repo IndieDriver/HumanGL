@@ -9,14 +9,20 @@ std::vector<Vertex> data = {
 };
 
 int main(int argc, char *argv[]) {
+
 	Env env(1280, 720);
 	Shader shader("shader.frag", "shader.vert");
 	bool quit = false;
 	Model model(data);
+
 	while (!quit) {
-		while (SDL_PollEvent(&env.sdlEvent) != 0) {
-			if(env.sdlEvent.type == SDL_QUIT) {
+		if (SDL_PollEvent(&env.sdlEvent) != 0) {
+			if(env.sdlEvent.type == SDL_QUIT || env.sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				quit = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_w)
+			{
+				model.membres[0].transform.position.z += 10;	
 			}
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
