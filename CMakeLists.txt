@@ -16,7 +16,9 @@ set(SOURCE_FILES
 	env.cpp
 	Vec.cpp
 	Matrix.cpp
-	Shader.cpp)
+	Shader.cpp
+	Model.cpp
+	Membre.cpp)
 
 add_executable(HumanGL ${SOURCE_FILES})
 

@@ -7,7 +7,7 @@ class Matrix {
         Matrix();
         void init_matrix();
         void print();
-        void get_identity();
+        void set_identity();
 		Vec4 operator*(const Vec4 &rhs);
 		Matrix operator*(const Matrix &rhs);
         void transpose();

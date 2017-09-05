@@ -1,7 +1,7 @@
 #include "Matrix.hpp"
 
 Matrix::Matrix() {
-    init_matrix();
+	set_identity();
 }
 
 void Matrix::print()
@@ -31,7 +31,7 @@ void Matrix::init_matrix()
     }
 }
 
-void Matrix::get_identity()
+void Matrix::set_identity()
 {
     init_matrix();
     mat4[0] = 1.0f;
@@ -234,7 +234,7 @@ Matrix  scaleMatrix(float x, float y, float z)
 {
     Matrix m;
 
-    m.get_identity();
+    m.set_identity();
     m.mat4[0] = x;
     m.mat4[5] = y;
     m.mat4[10] = z;
@@ -250,7 +250,7 @@ Matrix	rotMatrix(float rot_x, float rot_y, float rot_z)
     float d;
     float e;
 
-    mat.get_identity();
+    mat.set_identity();
     a = cos(rot_x);
     b = sin(rot_x);
     c = cos(rot_y);
@@ -317,7 +317,7 @@ Matrix	viewMatrix(Vec3 pos, Vec3 center, Vec3 up)
     right = dir.cross(u);
     right.normalize();
     u = right.cross(dir);
-    view.get_identity();
+    view.set_identity();
     view.mat4[0] = right.x;
     view.mat4[4] = right.y;
     view.mat4[8] = right.z;
@@ -368,7 +368,7 @@ Matrix projMatrix(float fov, float ratio)
     n = 0.1f;
     f = 100.0f;
     frustum = n - f;
-    mat.get_identity();
+    mat.set_identity();
     // NOT RAD
     float tanHalfFov = tanf(fov / 2.0f);
 
@@ -394,4 +394,9 @@ void printMatrix(float array[16])
         i++;
     }
     printf("\n");
+}
+
+Matrix  getMVP(Matrix model, Matrix view, Matrix proj) {
+	Matrix tmp = proj * view * model;
+	return (tmp);
 }
