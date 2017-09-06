@@ -26,11 +26,10 @@ Transform	Animation::updateTransform(Transform transform) {
 		this->_lastAnimUpdate = SDL_GetTicks();
     uint32_t current_time = SDL_GetTicks();
     uint32_t elapsed_time = current_time - this->_lastAnimUpdate;
-	if (elapsed_time > (1000 / 24)) {
+	if (elapsed_time > (1000 / 60)) {
 		this->_lastAnimUpdate = current_time;
 		transform = interpolate(transform, keyFrames[this->_nextIndex].transform,
 				keyFrames[this->_nextIndex].frame - _frameCount);
-		std::cout << keyFrames[this->_nextIndex].frame << " | " << this->_frameCount << std::endl;
 		if (keyFrames[this->_nextIndex].frame == this->_frameCount) {
 			if (_nextIndex + 1 < keyFrames.size()) {
 				_nextIndex++;
@@ -49,11 +48,7 @@ Transform	Animation::interpolate(Transform currentTransform, Transform targetTra
 		return (currentTransform);
 	Transform newTransform = currentTransform;
 	//(1 - t) * v0 + t * v1; lerp
-	newTransform.position = (1.0f - (1.0f / (float)step)) * currentTransform.position
-		+ (1.0f / (float)step) * targetTransform.position;
-	/*
-	newTransform.position = (currentTransform.position + (1.0f / (float)step))
-		* (targetTransform.position - currentTransform.position); */
-	newTransform.position.print();
+	newTransform.position = (1.0f - (1.0f / (float)step)) *
+		currentTransform.position + (1.0f / (float)step) * targetTransform.position;
 	return (newTransform);
 }
