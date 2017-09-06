@@ -23,6 +23,7 @@ class Membre {
 		Vec3					origin;
 
 		Transform				transform;
+		Vec3					color;
 
 		void applyTransform(Membre *parent);
 		Animation				animation;

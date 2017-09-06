@@ -2,6 +2,7 @@
 #include "Animator.hpp"
 #include "Shader.hpp"
 #include "env.hpp"
+#include "Skeleton.hpp"
 
 
 std::vector<Vertex> data = {
@@ -47,6 +48,7 @@ int main(int argc, char *argv[]) {
 
 	Env env(1280, 720);
 	Animator animator;
+	Skeleton skel;
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
 	Model model(data);
@@ -54,6 +56,9 @@ int main(int argc, char *argv[]) {
 	//lham.origin = Vec3(0.0f, 0.0f, 0.0f);
 	//model.membres[0].childrens.push_back({{0.0f, 0.0f, 0.0f}});
 
+	skel.loadSkeleton("human.skel", &model);
+	std::cout << "Children size: "
+		<< model.mainMembre->childrens[0].membre->childrens.size() << std::endl;
 	animator.loadAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
@@ -66,62 +71,62 @@ int main(int argc, char *argv[]) {
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_q)
 			{
-				model.membres[0].transform.position.y += 0.1;
+				model.mainMembre->transform.position.y += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_e)
 			{
-				model.membres[0].transform.position.y -= 0.1;
+				model.mainMembre->transform.position.y -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_a)
 			{
-				model.membres[0].transform.position.x += 0.1;
+				model.mainMembre->transform.position.x += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_d)
 			{
-				model.membres[0].transform.position.x -= 0.1;
+				model.mainMembre->transform.position.x -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_w)
 			{
-				model.membres[0].transform.position.z -= 0.1;
+				model.mainMembre->transform.position.z -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_s)
 			{
-				model.membres[0].transform.position.z += 0.1;
+				model.mainMembre->transform.position.z += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_8)
 			{
-				model.membres[0].transform.rotation.x += 0.1;
+				model.mainMembre->transform.rotation.x += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_5)
 			{
-				model.membres[0].transform.rotation.x -= 0.1;
+				model.mainMembre->transform.rotation.x -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_6)
 			{
-				model.membres[0].transform.rotation.y += 0.1;
+				model.mainMembre->transform.rotation.y += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_4)
 			{
-				model.membres[0].transform.rotation.y -= 0.1;
+				model.mainMembre->transform.rotation.y -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_7)
 			{
-				model.membres[0].transform.rotation.z += 0.1;
+				model.mainMembre->transform.rotation.z += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_9)
 			{
-				model.membres[0].transform.rotation.z -= 0.1;
+				model.mainMembre->transform.rotation.z -= 0.1;
 				model.toSee = true;
 			}
 		}

@@ -39,14 +39,14 @@ void	Model::draw(const Shader &shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader.use();
 
-	membres[0].applyTransform(nullptr);
+	mainMembre->applyTransform(nullptr);
 
 	Matrix MVP = getMVP(model, viewMatrix({0,0,0}, {0,0,-1}, {0,1,0}), projMatrix(50, 1208/720));
 
 	std::array<Matrix, 2> bones;
 	for (int i = 0; i < 2; ++i)
 	{
-		bones[i] = modelMatrix(membres[i].transform);
+		//bones[i] = modelMatrix(membres[i].transform);
 	}
 
 	std::array<Vec4, 2>colors;
