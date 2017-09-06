@@ -46,9 +46,14 @@ Transform	Animation::updateTransform(Transform transform) {
 Transform	Animation::interpolate(Transform currentTransform, Transform targetTransform, int step) {
 	if (step == 0)
 		return (currentTransform);
+	float t = 1.0f / (float)step;
 	Transform newTransform = currentTransform;
 	//(1 - t) * v0 + t * v1; lerp
-	newTransform.position = (1.0f - (1.0f / (float)step)) *
-		currentTransform.position + (1.0f / (float)step) * targetTransform.position;
+	newTransform.position = (1.0f - t) * currentTransform.position
+		+ t * targetTransform.position;
+	newTransform.rotation = (1.0f - t) * currentTransform.rotation
+		+ t * targetTransform.rotation;
+	newTransform.scale = (1.0f - t) * currentTransform.scale
+		+ t * targetTransform.scale;
 	return (newTransform);
 }

@@ -22,6 +22,7 @@ set(SOURCE_FILES
 	Classes/Model.cpp
 	Classes/Membre.cpp
 	Classes/Animation.cpp
+	Classes/Animator.cpp
 	)
 
 add_executable(HumanGL ${SOURCE_FILES})

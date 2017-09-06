@@ -1,4 +1,5 @@
 #include "model.hpp"
+#include "Animator.hpp"
 #include "Shader.hpp"
 #include "env.hpp"
 
@@ -11,21 +12,15 @@ std::vector<Vertex> data = {
 int main(int argc, char *argv[]) {
 
 	Env env(1280, 720);
+	Animator animator;
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
 	Model model(data);
-	KeyFrame keyFrame1 = {0, {{0.0f, 0.0f, 0.0f},
-							{0.0f, 0.0f, 0.0f},
-							{1.0f, 1.0f, 1.0f}}};
-	KeyFrame keyFrame2 = {42, {{1.0f, 1.0f, 0.0f},
-							{0.0f, 0.0f, 0.0f},
-							{1.0f, 1.0f, 1.0f}}};
-	KeyFrame keyFrame3 = {84, {{0.0f, 0.0f, 0.0f},
-							{0.0f, 0.0f, 0.0f},
-							{1.0f, 1.0f, 1.0f}}};
-	model.membres[0].animation.keyFrames.push_back(keyFrame1);
-	model.membres[0].animation.keyFrames.push_back(keyFrame2);
-	model.membres[0].animation.keyFrames.push_back(keyFrame3);
+	//Membre lharm = Membre;
+	//lham.origin = Vec3(0.0f, 0.0f, 0.0f);
+	//model.membres[0].childrens.push_back({{0.0f, 0.0f, 0.0f}});
+
+	animator.loadAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
 		if (SDL_PollEvent(&env.sdlEvent) != 0) {

@@ -20,7 +20,6 @@ class Membre {
 		Membre & operator=(Membre const & rhs);
 
 		std::vector<Child>		childrens;
-		std::vector<Vertex>		vertices;
 		Vec3					origin;
 
 		Transform				transform;
