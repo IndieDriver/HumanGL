@@ -19,11 +19,13 @@ class Model {
 		void draw(const Shader &shader);
 		void update();
 
-		std::array<Membre, 5>	membres;
+		std::array<Membre, 2>	membres;
 
 		Matrix	model;
 		Matrix	view;
 		Matrix	projection;
+
+		bool toSee = false;
 
 
 	private:

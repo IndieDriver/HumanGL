@@ -40,7 +40,7 @@ void Matrix::set_identity()
     mat4[15] = 1.0f;
 }
 
-void	Matrix::transpose() {
+void Matrix::transpose() {
     float tmp;
     int i;
     int j;
@@ -256,7 +256,7 @@ Matrix	rotMatrix(float rot_x, float rot_y, float rot_z)
     float cosZ = cos(rot_z);
     float sinX = sin(rot_x);
     float sinY = sin(rot_y);
-    float sinZ = sin(rot_x);
+    float sinZ = sin(rot_z);
 
     mat.set_identity();
     mat.mat4[0] = cosY * cosZ;
@@ -280,7 +280,7 @@ Matrix	rotMatrix(Vec3 rot)
     float cosZ = cos(rot.z);
     float sinX = sin(rot.x);
     float sinY = sin(rot.y);
-    float sinZ = sin(rot.x);
+    float sinZ = sin(rot.z);
 
     mat.set_identity();
     mat.mat4[0] = cosY * cosZ;
@@ -426,7 +426,7 @@ Matrix projMatrix(float fov, float ratio)
     float	frustum;
 
     n = 0.1f;
-    f = 100.0f;
+    f = 1000.0f;
     frustum = n - f;
     mat.set_identity();
     // NOT RAD
@@ -458,6 +458,6 @@ void printMatrix(float array[16])
 
 Matrix  getMVP(Matrix model, Matrix view, Matrix proj) {
 	Matrix tmp = model * view;
-	tmp = tmp * proj;
+    tmp = tmp * proj;
 	return (tmp);
 }
