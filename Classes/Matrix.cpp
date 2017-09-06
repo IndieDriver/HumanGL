@@ -280,7 +280,7 @@ Matrix	rotMatrix(Vec3 rot)
     float cosZ = cos(rot.z);
     float sinX = sin(rot.x);
     float sinY = sin(rot.y);
-    float sinZ = sin(rot.x);
+    float sinZ = sin(rot.z);
 
     mat.set_identity();
     mat.mat4[0] = cosY * cosZ;
