@@ -3,10 +3,44 @@
 #include "Shader.hpp"
 #include "env.hpp"
 
+
 std::vector<Vertex> data = {
-	{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0},
-	{{1.0f, -1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0},
-	{{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0}
+	{{1.0f,   1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}},
+	{{1.0f,  -1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}},
+	{{1.0f,   1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}},
+	{{1.0f,   1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}},
+	{{1.0f,  -1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}},
+	{{1.0f,  -1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}},
+	{{ 1.0f,  1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}},
+	{{-1.0f,  1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}},
+	{{-1.0f, -1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}},
+	{{-1.0f,  1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}},
+	{{ 1.0f,  1.0f,  1.0f}, { 0.0f,  1.0f,  0.0f}},
+	{{-1.0f,  1.0f, -1.0f}, { 0.0f,  1.0f,  0.0f}},
+	{{-1.0f,  1.0f,  1.0f}, { 0.0f,  1.0f,  0.0f}},
+	{{ 1.0f,  1.0f,  1.0f}, { 0.0f,  1.0f,  0.0f}},
+	{{ 1.0f,  1.0f, -1.0f}, { 0.0f,  1.0f,  0.0f}},
+	{{-1.0f,  1.0f, -1.0f}, { 0.0f,  1.0f,  0.0f}},
+	{{-1.0f, -1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}},
+	{{-1.0f, -1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}},
+	{{-1.0f,  1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}},
+	{{-1.0f, -1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}},
+	{{-1.0f,  1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}},
+	{{-1.0f,  1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}},
+	{{-1.0f,  1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}},
+	{{ 1.0f,  1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}},
+	{{ 1.0f,  1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}},
+	{{ 1.0f, -1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f, -1.0f,  0.0f}},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}},
+	{{-1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f, -1.0f,  0.0f}},
+	{{ 1.0f, -1.0f, -1.0f}, { 0.0f, -1.0f,  0.0f}},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}}
 };
 
 int main(int argc, char *argv[]) {
@@ -23,13 +57,72 @@ int main(int argc, char *argv[]) {
 	animator.loadAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
+
+		//model.membres[0].transform.rotation.y += 0.010f;
+
 		if (SDL_PollEvent(&env.sdlEvent) != 0) {
 			if(env.sdlEvent.type == SDL_QUIT || env.sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				quit = true;
 			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_q)
+			{
+				model.membres[0].transform.position.y += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_e)
+			{
+				model.membres[0].transform.position.y -= 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_a)
+			{
+				model.membres[0].transform.position.x += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_d)
+			{
+				model.membres[0].transform.position.x -= 0.1;
+				model.toSee = true;
+			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_w)
 			{
-				model.membres[0].transform.position.z += 10;
+				model.membres[0].transform.position.z -= 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_s)
+			{
+				model.membres[0].transform.position.z += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_KP_8)
+			{
+				model.membres[0].transform.rotation.x += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_KP_5)
+			{
+				model.membres[0].transform.rotation.x -= 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_KP_6)
+			{
+				model.membres[0].transform.rotation.y += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_KP_4)
+			{
+				model.membres[0].transform.rotation.y -= 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_KP_7)
+			{
+				model.membres[0].transform.rotation.z += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_KP_9)
+			{
+				model.membres[0].transform.rotation.z -= 0.1;
+				model.toSee = true;
 			}
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

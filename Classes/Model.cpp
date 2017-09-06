@@ -15,13 +15,9 @@ Model::Model(std::vector<Vertex> vert) {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
-	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, boneIndex));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
 }
 
 Model::Model(Model const & src) {
@@ -44,21 +40,32 @@ void	Model::draw(const Shader &shader) {
 	shader.use();
 
 	membres[0].applyTransform(nullptr);
-	std::array<Matrix, 5> bones;
-	for (int i = 0; i < membres.size(); ++i)
+
+	Matrix MVP = getMVP(model, viewMatrix({0,0,0}, {0,0,-1}, {0,1,0}), projMatrix(50, 1208/720));
+
+	std::array<Matrix, 2> bones;
+	for (int i = 0; i < 2; ++i)
 	{
 		bones[i] = modelMatrix(membres[i].transform);
-
 	}
 
-	Matrix MVP = getMVP(model, view, projection);
-
-
+	std::array<Vec4, 2>colors;
+	colors[0] = {1.0f, 0.0f, 0.0f, 1.0f};
+	colors[1] = {1.0f, 1.0f, 1.0f, 1.0f};
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
 
-	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 5, GL_FALSE, (const GLfloat*)&bones[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 2, GL_FALSE, (const GLfloat*)&bones[0]);
+
+	glUniform4fv(glGetUniformLocation(shader.id, "colors"), 2, (const GLfloat*)&colors[0]);
+
+	if (toSee)
+	{
+		printMatrix(bones[0].mat4);
+		toSee = false;
+	}
 
 	glBindVertexArray(this->_vao);
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+//	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), 2);
 }
