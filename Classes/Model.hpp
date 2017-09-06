@@ -19,7 +19,7 @@ class Model {
 		void draw(const Shader &shader);
 		void update();
 
-		std::array<Membre, 2>	membres;
+		std::array<Membre, 3>	membres;
 
 		Matrix	model;
 		Matrix	view;

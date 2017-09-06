@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include <string>
+#include <ostream>
+#include <cstdio>
 #include "struct.hpp"
 #include "Vec.hpp"
 #include "Matrix.hpp"
@@ -23,7 +26,10 @@ class Membre {
 		Vec3					origin;
 
 		Transform				transform;
+		Matrix					modelMat;
 
-		void applyTransform(Membre *parent);
+		void applyTransform();
+		void applyTransform(Membre *parent, Vec3 jointure);
+		
 		Animation				animation;
 };
