@@ -2,10 +2,44 @@
 #include "Shader.hpp"
 #include "env.hpp"
 
+
 std::vector<Vertex> data = {
-	{{-1.0f, -1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0},
-	{{1.0f, -1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0},
-	{{0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, 0}
+	{{1.0f,   1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 0.0f } , 0},
+	{{1.0f,  -1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 0.0f } , 0},
+	{{1.0f,   1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 0.0f } , 0},
+	{{1.0f,   1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 0.0f } , 0},
+	{{1.0f,  -1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 0.0f } , 0},
+	{{1.0f,  -1.0f, -1.0f}, { 1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 0.0f } , 0},
+	{{ 1.0f,  1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f, 1.0f } , 0},
+	{{-1.0f,  1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f, 1.0f } , 0},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f, 1.0f } , 0},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f, 1.0f } , 0},
+	{{-1.0f, -1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f, 1.0f } , 0},
+	{{-1.0f,  1.0f,  1.0f}, { 0.0f,  0.0f,  1.0f}, {0.0f, 1.0f, 1.0f } , 0},
+	{{ 1.0f,  1.0f,  1.0f}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f, 0.0f } , 0},
+	{{-1.0f,  1.0f, -1.0f}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f, 0.0f } , 0},
+	{{-1.0f,  1.0f,  1.0f}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f, 0.0f } , 0},
+	{{ 1.0f,  1.0f,  1.0f}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f, 0.0f } , 0},
+	{{ 1.0f,  1.0f, -1.0f}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f, 0.0f } , 0},
+	{{-1.0f,  1.0f, -1.0f}, { 0.0f,  1.0f,  0.0f}, {1.0f, 1.0f, 0.0f } , 0},
+	{{-1.0f, -1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f, -1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f,  1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f, -1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f,  1.0f, -1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f,  1.0f,  1.0f}, {-1.0f,  0.0f,  0.0f}, {1.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f,  1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f, 1.0f } , 0},
+	{{ 1.0f,  1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f, 1.0f } , 0},
+	{{ 1.0f,  1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f, 1.0f } , 0},
+	{{ 1.0f, -1.0f, -1.0f}, { 0.0f,  0.0f, -1.0f}, {0.0f, 0.0f, 1.0f } , 0},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f, -1.0f,  0.0f}, {0.6f, 0.2f, 0.4f } , 0},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}, {0.6f, 0.2f, 0.4f } , 0},
+	{{-1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}, {0.6f, 0.2f, 0.4f } , 0},
+	{{-1.0f, -1.0f, -1.0f}, { 0.0f, -1.0f,  0.0f}, {0.6f, 0.2f, 0.4f } , 0},
+	{{ 1.0f, -1.0f, -1.0f}, { 0.0f, -1.0f,  0.0f}, {0.6f, 0.2f, 0.4f } , 0},
+	{{ 1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}, {0.6f, 0.2f, 0.4f } , 0}
 };
 
 int main(int argc, char *argv[]) {
@@ -25,32 +59,52 @@ int main(int argc, char *argv[]) {
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_q)
 			{
-				model.model.mat4[13] += 0.1;
+				model.membres[0].transform.position.y += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_e)
 			{
-				model.model.mat4[13] -= 0.1;
+				model.membres[0].transform.position.y -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_a)
 			{
-				model.model.mat4[12] -= 0.1;
+				model.membres[0].transform.position.x += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_d)
 			{
-				model.model.mat4[12] += 0.1;
+				model.membres[0].transform.position.x -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_w)
 			{
-				model.model.mat4[14] -= 0.1;
+				model.membres[0].transform.position.z -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_s)
 			{
-				model.model.mat4[14] += 0.1;
+				model.membres[0].transform.position.z += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_UP)
+			{
+				model.membres[0].transform.rotation.z += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_DOWN)
+			{
+				model.membres[0].transform.rotation.z -= 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_RIGHT)
+			{
+				model.membres[0].transform.rotation.y += 0.1;
+				model.toSee = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_LEFT)
+			{
+				model.membres[0].transform.rotation.y -= 0.1;
 				model.toSee = true;
 			}
 		}

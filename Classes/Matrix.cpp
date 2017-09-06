@@ -457,7 +457,7 @@ void printMatrix(float array[16])
 }
 
 Matrix  getMVP(Matrix model, Matrix view, Matrix proj) {
-	Matrix tmp = proj * view;
-    tmp = tmp * model;
+	Matrix tmp = model * view;
+    tmp = tmp * proj;
 	return (tmp);
 }

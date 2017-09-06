@@ -20,6 +20,9 @@ Env::Env(int width, int height) {
 			if(glContext == NULL) {
 				std::cout << "OpenGL context could not be created! SDL Error: " << SDL_GetError() << std::endl;
 			}
+
+			glEnable(GL_DEPTH_TEST);
+
 		}
 	}
 }

@@ -43,13 +43,9 @@ void	Model::draw(const Shader &shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader.use();
 
-	Matrix MVP = getMVP(model, viewMatrix({-1,0,0}, {0,0,0}, {0,1,0}), projMatrix(60, 1));
+	Matrix MVP = getMVP(model, viewMatrix({0,0,0}, {0,0,-1}, {0,1,0}), projMatrix(50, 1208/720));
 	std::array<Matrix, 5> bones;
-	if (toSee)
-	{
-		printMatrix(MVP.mat4);
-		toSee = false;
-	}
+
 	for (int i = 0; i < membres.size(); ++i)
 	{
 		bones[i] = modelMatrix(membres[i].transform);
@@ -58,6 +54,12 @@ void	Model::draw(const Shader &shader) {
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 5, GL_FALSE, (const GLfloat*)&bones[0]);
+
+	if (toSee)
+	{
+		printMatrix(bones[0].mat4);
+		toSee = false;
+	}
 
 	glBindVertexArray(this->_vao);
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
