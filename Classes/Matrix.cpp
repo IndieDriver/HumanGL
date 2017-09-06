@@ -256,7 +256,7 @@ Matrix	rotMatrix(float rot_x, float rot_y, float rot_z)
     float cosZ = cos(rot_z);
     float sinX = sin(rot_x);
     float sinY = sin(rot_y);
-    float sinZ = sin(rot_x);
+    float sinZ = sin(rot_z);
 
     mat.set_identity();
     mat.mat4[0] = cosY * cosZ;

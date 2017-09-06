@@ -89,12 +89,12 @@ int main(int argc, char *argv[]) {
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_UP)
 			{
-				model.membres[0].transform.rotation.z += 0.1;
+				model.membres[0].transform.rotation.x += 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_DOWN)
 			{
-				model.membres[0].transform.rotation.z -= 0.1;
+				model.membres[0].transform.rotation.x -= 0.1;
 				model.toSee = true;
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_RIGHT)
