@@ -29,7 +29,7 @@ std::vector<MemberElement>	readMembre(std::fstream &skelFile) {
 			continue;
 		MemberElement el;
 		int ret = std::sscanf(lineChar,
-				"(%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f %f)",
+				"(%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f,%f) (%f,%f,%f)",
 				&el.ori.x, &el.ori.y, &el.ori.z,
 				&el.transform.position.x, &el.transform.position.y,
 				&el.transform.position.z,
@@ -51,7 +51,7 @@ void		readJoint(std::fstream &skelFile, Model *model,
 				std::vector<MemberElement> members) {
 	std::string line;
 	std::vector<Membre*> membreVector;
-	for (MemberElement me : members) {
+	for (MemberElement &me : members) {
 		Membre *newMembre = new Membre();
 		newMembre->transform = me.transform;
 		newMembre->color = me.col;

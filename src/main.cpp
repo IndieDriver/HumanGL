@@ -57,8 +57,6 @@ int main(int argc, char *argv[]) {
 	//model.membres[0].childrens.push_back({{0.0f, 0.0f, 0.0f}});
 
 	skel.loadSkeleton("human.skel", &model);
-	std::cout << "Children size: "
-		<< model.mainMembre->childrens[0].membre->childrens.size() << std::endl;
 	animator.loadAnim("Anims/walk.anim", &model);
 
 	while (!quit) {

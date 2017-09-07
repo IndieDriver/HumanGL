@@ -20,7 +20,7 @@ Membre &	Membre::operator=(Membre const & rhs) {
 }
 
 void 	Membre::applyTransform(Membre *parent) {
-	parent->color.print();
+	//parent->color.print();
 	//transform = animation.updateTransform(transform);
 
 	if (parent != nullptr) {
