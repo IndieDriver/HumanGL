@@ -56,9 +56,9 @@ int main(int argc, char *argv[]) {
 	//animator.loadAnim("Anims/walk.anim", &model);
 
 	model.membres[0].childrens.push_back({&model.membres[1], {1.0f, 1.0f, 1.0f}});
-	// model.membres[1].origin = {0.5f, 0.5f, 0.0f};
-	// model.membres[1].childrens.push_back({&model.membres[2], {1.0f, 1.0f, 1.0f}});
-	// model.membres[2].origin = {0.5f, 0.5f, 0.0f};
+	model.membres[1].origin = {0.5f, 0.5f, 0.0f};
+	model.membres[1].childrens.push_back({&model.membres[2], {1.0f, 1.0f, 1.0f}});
+	model.membres[2].origin = {0.5f, 0.5f, 0.0f};
 
 	while (!quit) {
 		if (SDL_PollEvent(&env.sdlEvent) != 0) {
@@ -94,6 +94,7 @@ int main(int argc, char *argv[]) {
 			if (env.sdlEvent.key.keysym.sym == SDLK_2)
 				control_id = 1;
 		}
+		// std::cout << model.membres[1].transform.rotation.y << std::endl;
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

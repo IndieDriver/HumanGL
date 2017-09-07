@@ -296,6 +296,35 @@ Matrix	rotMatrix(Vec3 rot)
     return (mat);
 }
 
+Matrix  rotMatVec(float angle, Vec3 axe)
+{
+    Matrix ret;
+    float c = cos(angle);
+    float s = sin(angle);
+
+    ret.set_identity();
+    ret.mat4[0] = axe.x * axe.x + (1 - axe.x * axe.x) * c;
+    ret.mat4[1] = axe.x * axe.y * (1 - c) - axe.z * s;
+    ret.mat4[2] = axe.x * axe.z * (1 - c) + axe.y * s;
+    ret.mat4[4] = axe.x * axe.y * (1 - c) + axe.z * s;
+    ret.mat4[5] = axe.y * axe.y + (1 - axe.y * axe.y) * c;
+    ret.mat4[6] = axe.y * axe.z * (1 - c) - axe.x * s;
+    ret.mat4[8] = axe.x * axe.z * (1 - c) + axe.y * s;
+    ret.mat4[9] = axe.y * axe.z * (1 - c) - axe.x * s;
+    ret.mat4[10] = axe.z * axe.z + (1 - axe.z * axe.z) * c;
+    return ret;
+
+}
+
+Matrix	rotMatrix(Vec3 rot, Vec3 NewX, Vec3 NewY, Vec3 NewZ)
+{
+    Matrix mat;
+
+    mat = rotMatVec(rot.x, NewX) * rotMatVec(rot.y, NewY);
+    mat = mat * rotMatVec(rot.z, NewZ);
+    return (mat);
+}
+
 Matrix	transMatrix(float x, float y, float z)
 {
     Matrix mat;
@@ -324,6 +353,13 @@ Matrix	transMatrix(Vec3 trans)
     return (mat);
 }
 
+Matrix	transMatrix(Vec3 trans, Vec3 axeX, Vec3 AxeY, Vec3 AxeZ)
+{
+    Matrix mat;
+
+    return (mat);
+}
+
 Matrix	modelMatrix(Vec3 pos, Vec3 rot, Vec3 scale)
 {
     //ROT MUST BE IN RAD !!
@@ -333,7 +369,7 @@ Matrix	modelMatrix(Vec3 pos, Vec3 rot, Vec3 scale)
     Matrix tmp;
     Matrix model;
 
-    model.init_matrix();
+    model.set_identity();
     //TODO: FIXME
     mrot = rotMatrix(fmod(rot.x, 360.0f), fmod(rot.y, 360.0f), fmod(rot.z, 360.0f));
     mtran = transMatrix(pos.x, pos.y, pos.z);
@@ -352,10 +388,29 @@ Matrix	modelMatrix(Transform transform)
     Matrix tmp;
     Matrix model;
 
-    model.init_matrix();
+    model.set_identity();
     //TODO: FIXME
     mrot = rotMatrix(transform.rotation);
     mtran = transMatrix(transform.position);
+    mscale = scaleMatrix(transform.scale);
+	tmp = mscale * mrot;
+	model = tmp * mtran;
+    return (model);
+}
+
+Matrix	modelMatrix(Transform transform, Vec3 NewX, Vec3 NewY, Vec3 NewZ)
+{
+    //ROT MUST BE IN RAD !!
+    Matrix mtran;
+    Matrix mrot;
+    Matrix mscale;
+    Matrix tmp;
+    Matrix model;
+
+    model.set_identity();
+    //TODO: FIXME
+    mrot = rotMatrix(transform.rotation, NewX,  NewY,  NewZ);
+    mtran = transMatrix(transform.position, NewX, NewY, NewZ);
     mscale = scaleMatrix(transform.scale);
 	tmp = mscale * mrot;
 	model = tmp * mtran;

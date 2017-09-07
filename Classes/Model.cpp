@@ -56,9 +56,9 @@ void	Model::draw(const Shader &shader) {
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
 
-	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 2, GL_FALSE, (const GLfloat*)&bones[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 3, GL_FALSE, (const GLfloat*)&bones[0]);
 
-	glUniform4fv(glGetUniformLocation(shader.id, "colors"), 2, (const GLfloat*)&colors[0]);
+	glUniform4fv(glGetUniformLocation(shader.id, "colors"), 3, (const GLfloat*)&colors[0]);
 
 	if (toSee)
 	{
@@ -68,5 +68,5 @@ void	Model::draw(const Shader &shader) {
 
 	glBindVertexArray(this->_vao);
 //	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), 2);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), 3);
 }
