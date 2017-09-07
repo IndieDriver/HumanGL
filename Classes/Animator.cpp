@@ -64,13 +64,23 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 			keyframe.transform.position = pos;
 			keyframe.transform.rotation = rot;
 			keyframe.transform.scale = sca;
-			std::cout << frame << std::endl;
-			pos.print();
-			rot.print();
-			sca.print();
-			membre->animation.keyFrames.push_back(keyframe);
+			bool found = false;
+			for (Animation &animation : membre->animations) {
+				if (animation.name == filename) {
+					animation.keyFrames.push_back(keyframe);
+					found = true;
+				}
+			}
+			if (found == false) {
+				Animation anim(filename);
+				membre->animations.push_back(anim);
+				membre->animations.back().keyFrames.push_back(keyframe);
+			}
 		}
 		animFile.close();
 	}
+}
 
+void	Animator::playAnim(std::string name, Model *model) {
+	model->mainMembre->playAnimation(name);
 }

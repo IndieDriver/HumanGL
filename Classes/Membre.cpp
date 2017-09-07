@@ -2,6 +2,7 @@
 
 Membre::Membre(void) {
 	origin = Vec3();
+	_animID = -1;
 }
 
 Membre::Membre(Membre const & src) {
@@ -21,7 +22,7 @@ Membre &	Membre::operator=(Membre const & rhs) {
 
 void 	Membre::applyTransform(Membre *parent) {
 	//parent->color.print();
-	//transform = animation.updateTransform(transform);
+	//transform = animations[i].updateTransform(transform);
 
 	if (parent != nullptr) {
 
@@ -46,4 +47,20 @@ std::vector<Matrix> Membre::pushBone(std::vector<Matrix> &bones) {
 		bones = child.membre->pushBone(bones);
 	}
 	return (bones);
+}
+
+void	Membre::playAnimation(std::string animName) {
+	if (_animID != -1) {
+		animations[this->_animID].reset();
+	}
+	int id = 0;
+	for (Animation &animation : animations) {
+		if (animation.name == animName) {
+			_animID = id;
+			animations[this->_animID].reset();
+			return ;
+		}
+		id++;
+	}
+	_animID = -1;
 }

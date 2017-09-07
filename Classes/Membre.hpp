@@ -26,8 +26,13 @@ class Membre {
 		Vec3					color;
 
 		void applyTransform(Membre *parent);
-		Animation				animation;
 
 		std::vector<Vec4>		pushColor(std::vector<Vec4> &colors);
 		std::vector<Matrix>		pushBone(std::vector<Matrix> &bones);
+
+		std::vector<Animation>	animations;
+		void					playAnimation(std::string animName);
+
+	private:
+		int32_t					_animID;
 };

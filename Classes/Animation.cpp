@@ -1,6 +1,7 @@
 #include "Animation.hpp"
 
-Animation::Animation(void) {
+Animation::Animation(std::string animName) {
+    this->name = animName;
     _lastAnimUpdate = 0;
     _frameCount = 0;
     _nextIndex = 0;
@@ -56,4 +57,10 @@ Transform	Animation::interpolate(Transform currentTransform, Transform targetTra
     newTransform.scale = (1.0f - t) * currentTransform.scale
 	+ t * targetTransform.scale;
     return (newTransform);
+}
+
+void		Animation::reset() {
+    this->_lastAnimUpdate = 0;
+    this->_frameCount = 0;
+    this->_nextIndex = 0;
 }

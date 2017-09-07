@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Vec.hpp"
 #include "env.hpp"
 #include "struct.hpp"
@@ -11,12 +12,15 @@ struct KeyFrame {
 
 class Animation {
 	public:
-		Animation(void);
+		Animation(std::string animName);
 		Animation(Animation const & src);
 		virtual ~Animation(void);
 		Animation & operator=(Animation const & rhs);
+		std::string				name;
 		std::vector<KeyFrame>	keyFrames;
 		Transform	updateTransform(Transform transform);
+
+		void		reset();
 	private:
 		uint32_t	_lastAnimUpdate;
 		uint32_t	_frameCount;

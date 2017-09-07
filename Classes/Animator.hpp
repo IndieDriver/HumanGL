@@ -13,4 +13,5 @@ class Animator {
 		virtual ~Animator(void);
 		Animator & operator=(Animator const & rhs);
 		void loadAnim(std::string filename, Model *model);
+		void playAnim(std::string name, Model *model);
 };
