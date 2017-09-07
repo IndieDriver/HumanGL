@@ -87,6 +87,7 @@ void	Skeleton::loadSkeleton(std::string filename, Model *model) {
 	std::vector<MemberElement> members;
 	if (skelFile) {
 		members = readMembre(skelFile);
+		model->nb_membres = members.size();
 		readJoint(skelFile, model, members);
 		skelFile.close();
 	}

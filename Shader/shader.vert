@@ -3,8 +3,8 @@ layout(location = 0) in vec3 vertex_pos;
 layout(location = 1) in vec3 vertex_normal;
 
 uniform mat4 MVP;
-uniform mat4[5] bones;
-uniform vec4[5] colors;
+uniform mat4[64] bones;
+uniform vec4[64] colors;
 
 out vec4 color;
 void main () {

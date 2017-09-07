@@ -43,21 +43,16 @@ void	Model::draw(const Shader &shader) {
 
 	Matrix MVP = getMVP(model, viewMatrix({0,0,0}, {0,0,-1}, {0,1,0}), projMatrix(50, 1208/720));
 
-	std::array<Matrix, 2> bones;
-	for (int i = 0; i < 2; ++i)
-	{
-		//bones[i] = modelMatrix(membres[i].transform);
-	}
-
-	std::array<Vec4, 2>colors;
-	colors[0] = {1.0f, 0.0f, 0.0f, 1.0f};
-	colors[1] = {1.0f, 1.0f, 1.0f, 1.0f};
+	std::vector<Matrix> bones;
+	std::vector<Vec4> colors;
+	colors = mainMembre->pushColor(colors);
+	bones = mainMembre->pushBone(bones);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
 
-	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), 2, GL_FALSE, (const GLfloat*)&bones[0]);
+	glUniformMatrix4fv(glGetUniformLocation(shader.id, "bones"), this->nb_membres, GL_FALSE, (const GLfloat*)bones.data());
 
-	glUniform4fv(glGetUniformLocation(shader.id, "colors"), 2, (const GLfloat*)&colors[0]);
+	glUniform4fv(glGetUniformLocation(shader.id, "colors"), this->nb_membres, (const GLfloat*)colors.data());
 
 	if (toSee)
 	{
@@ -67,5 +62,5 @@ void	Model::draw(const Shader &shader) {
 
 	glBindVertexArray(this->_vao);
 //	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), 2);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), this->nb_membres);
 }

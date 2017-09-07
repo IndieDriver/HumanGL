@@ -27,7 +27,23 @@ void 	Membre::applyTransform(Membre *parent) {
 
 		//transform = transform * parent->transform; //a decomposer
 	}
-	for (Child & children : childrens) {
-		children.membre->applyTransform(this);
+	for (Child & child : childrens) {
+		child.membre->applyTransform(this);
 	}
+}
+
+std::vector<Vec4> Membre::pushColor(std::vector<Vec4> &colors) {
+	colors.push_back(this->color);
+	for (Child & child : childrens) {
+		colors = child.membre->pushColor(colors);
+	}
+	return (colors);
+}
+
+std::vector<Matrix> Membre::pushBone(std::vector<Matrix> &bones) {
+	bones.push_back(modelMatrix(this->transform));
+	for (Child & child : childrens) {
+		bones = child.membre->pushBone(bones);
+	}
+	return (bones);
 }

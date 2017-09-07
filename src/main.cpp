@@ -52,10 +52,6 @@ int main(int argc, char *argv[]) {
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
 	Model model(data);
-	//Membre lharm = Membre;
-	//lham.origin = Vec3(0.0f, 0.0f, 0.0f);
-	//model.membres[0].childrens.push_back({{0.0f, 0.0f, 0.0f}});
-
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
 

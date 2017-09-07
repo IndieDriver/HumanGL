@@ -26,6 +26,7 @@ class Model {
 		Matrix	projection;
 
 		bool toSee = false;
+		uint32_t	nb_membres;
 
 
 	private:

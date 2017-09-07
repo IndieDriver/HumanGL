@@ -27,4 +27,7 @@ class Membre {
 
 		void applyTransform(Membre *parent);
 		Animation				animation;
+
+		std::vector<Vec4>		pushColor(std::vector<Vec4> &colors);
+		std::vector<Matrix>		pushBone(std::vector<Matrix> &bones);
 };
