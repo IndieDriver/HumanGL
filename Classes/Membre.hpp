@@ -32,4 +32,5 @@ class Membre {
 
 		std::vector<Vec4>		pushColor(std::vector<Vec4> &colors);
 		void		pushBone(std::vector<Matrix> &bones);
+		void		pushMembre(std::vector<Membre*> &membre);
 };

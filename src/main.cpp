@@ -5,6 +5,14 @@
 #include "Skeleton.hpp"
 
 
+void print_transform(Transform trans)
+{
+	std::cout << std::endl << "position : (" << trans.position.x << ", " << trans.position.y << ", " << trans.position.x << ")" << std::endl;
+	std::cout << "rotation : (" << trans.rotation.x << ", " << trans.rotation.y << ", " << trans.rotation.x << ")" << std::endl;
+	std::cout << "scale : (" << trans.scale.x << ", " << trans.scale.y << ", " << trans.scale.x << ")" << std::endl;
+
+}
+
 std::vector<Vertex> data = {
 	{{1.0f,   1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}},
 	{{1.0f,  -1.0f,  1.0f}, { 1.0f,  0.0f,  0.0f}},
@@ -55,36 +63,55 @@ int main(int argc, char *argv[]) {
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
 
+	std::vector<Membre*> membreVect;
+	model.mainMembre->pushMembre(membreVect);
+	int curMem = 0;
+
 	while (!quit) {
 
 		if (SDL_PollEvent(&env.sdlEvent) != 0) {
 			if(env.sdlEvent.type == SDL_QUIT || env.sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				quit = true;
 			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_t)
+			{
+				if (env.sdlEvent.key.repeat == 0 && env.sdlEvent.key.type == SDL_KEYDOWN)
+				{
+					std::cout << curMem << std::endl;
+					curMem++;
+					if (curMem == membreVect.size())
+						curMem = 0;
+				}
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_p)
+			{
+				if (env.sdlEvent.key.repeat == 0 && env.sdlEvent.key.type == SDL_KEYDOWN)
+					print_transform(membreVect[curMem]->transform);
+			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_q)
-				model.mainMembre->transform.position.y += 0.1;
+				membreVect[curMem]->transform.position.y += 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_e)
-				model.mainMembre->transform.position.y -= 0.1;
+				membreVect[curMem]->transform.position.y -= 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_a)
-				model.mainMembre->transform.position.x += 0.1;
+				membreVect[curMem]->transform.position.x += 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_d)
-				model.mainMembre->transform.position.x -= 0.1;
+				membreVect[curMem]->transform.position.x -= 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_w)
-				model.mainMembre->transform.position.z -= 0.1;
+				membreVect[curMem]->transform.position.z -= 1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_s)
-				model.mainMembre->transform.position.z += 0.1;
+				membreVect[curMem]->transform.position.z += 1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_8)
-				model.mainMembre->transform.rotation.x += 0.1;
+				membreVect[curMem]->transform.rotation.x += 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_5)
-				model.mainMembre->transform.rotation.x -= 0.1;
+				membreVect[curMem]->transform.rotation.x -= 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_6)
-				model.mainMembre->transform.rotation.y += 0.1;
+				membreVect[curMem]->transform.rotation.y += 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_4)
-				model.mainMembre->transform.rotation.y -= 0.1;
+				membreVect[curMem]->transform.rotation.y -= 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_7)
-				model.mainMembre->transform.rotation.z += 0.1;
+				membreVect[curMem]->transform.rotation.z += 0.1;
 			if (env.sdlEvent.key.keysym.sym == SDLK_KP_9)
-				model.mainMembre->transform.rotation.z -= 0.1;
+				membreVect[curMem]->transform.rotation.z -= 0.1;
 		}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
