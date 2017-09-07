@@ -54,6 +54,7 @@ int main(int argc, char *argv[]) {
 	Model model(data);
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
+	animator.playAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
 

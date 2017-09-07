@@ -5,6 +5,9 @@ Animation::Animation(std::string animName) {
     _lastAnimUpdate = 0;
     _frameCount = 0;
     _nextIndex = 0;
+    _offsetTransform = {{0.0f, 0.0f, 0.0f},
+			{0.0f, 0.0f, 0.0f},
+			{0.0f, 0.0f, 0.0f}};
 }
 
 Animation::Animation(Animation const & src) {
@@ -17,7 +20,11 @@ Animation::~Animation(void) {
 
 Animation &	Animation::operator=(Animation const & rhs) {
     if (this != &rhs){
-
+	this->name = rhs.name;
+	this->keyFrames = rhs.keyFrames;
+	this->_lastAnimUpdate = rhs._lastAnimUpdate;
+	this->_frameCount = rhs._frameCount;
+	this->_nextIndex = rhs._nextIndex;
     }
     return (*this);
 }
@@ -37,6 +44,9 @@ Transform	Animation::updateTransform(Transform transform) {
 	    } else {
 		_nextIndex = 0;
 		_frameCount = -1;
+		this->_offsetTransform = {{0.0f, 0.0f, 0.0f},
+					{0.0f, 0.0f, 0.0f},
+					{0.0f, 0.0f, 0.0f}};
 	    }
 	}
 	_frameCount++;
@@ -48,19 +58,34 @@ Transform	Animation::interpolate(Transform currentTransform, Transform targetTra
     if (step == 0)
 	return (currentTransform);
     float t = 1.0f / (float)step;
-    Transform newTransform = currentTransform;
-    //(1 - t) * v0 + t * v1; lerp
-    newTransform.position = (1.0f - t) * currentTransform.position
+    Transform oldOffset = _offsetTransform;
+
+    _offsetTransform.position = (1.0f - t) * _offsetTransform.position
 	+ t * targetTransform.position;
-    newTransform.rotation = (1.0f - t) * currentTransform.rotation
+    currentTransform.position += (_offsetTransform.position - oldOffset.position);
+
+    _offsetTransform.rotation = (1.0f - t) * _offsetTransform.rotation
 	+ t * targetTransform.rotation;
-    newTransform.scale = (1.0f - t) * currentTransform.scale
+    currentTransform.rotation += (_offsetTransform.rotation - oldOffset.rotation);
+
+    _offsetTransform.scale = (1.0f - t) * _offsetTransform.scale
 	+ t * targetTransform.scale;
-    return (newTransform);
+    currentTransform.scale += (_offsetTransform.scale - oldOffset.scale);
+    return (currentTransform);
 }
+
+/*
+void		Animation::init() {
+    this->_offsetTransfrom = {{0.0f, 0.0f, 0.0f},
+			    {0.0f, 0.0f, 0.0f},
+			    {0.0f, 0.0f, 0.0f}};
+} */
 
 void		Animation::reset() {
     this->_lastAnimUpdate = 0;
     this->_frameCount = 0;
     this->_nextIndex = 0;
+    this->_offsetTransform = {{0.0f, 0.0f, 0.0f},
+			    {0.0f, 0.0f, 0.0f},
+			    {0.0f, 0.0f, 0.0f}};
 }

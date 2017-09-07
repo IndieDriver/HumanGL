@@ -21,8 +21,9 @@ Membre &	Membre::operator=(Membre const & rhs) {
 }
 
 void 	Membre::applyTransform(Membre *parent) {
-	//parent->color.print();
-	//transform = animations[i].updateTransform(transform);
+	if (this->_animID != -1 && this->_animID < animations.size()) {
+		this->transform = animations[_animID].updateTransform(transform);
+	}
 	this->modelMat = modelMatrix(this->transform);
 
 	for (Child & child : childrens) {
@@ -31,11 +32,15 @@ void 	Membre::applyTransform(Membre *parent) {
 }
 
 void 	Membre::applyTransform(Membre *parent, Vec3 jointure) {
-	//parent->color.print();
 	if (parent != nullptr) {
-		//this->transform = animation.updateTransform(transform);
+		if (this->_animID != -1 && this->_animID < animations.size()) {
+			this->transform = animations[_animID].updateTransform(transform);
+		}
 		Transform newTrans = this->transform;
+
 		newTrans.position -= jointure;
+		newTrans.position -= this->origin;
+
 		this->modelMat = modelMatrix(newTrans) * parent->modelMat;
 	}
 	for (Child & child : childrens) {
@@ -59,7 +64,7 @@ void Membre::pushBone(std::vector<Matrix> &bones) {
 }
 
 void	Membre::playAnimation(std::string animName) {
-	if (_animID != -1) {
+	if (_animID != -1 && _animID < animations.size()) {
 		animations[this->_animID].reset();
 	}
 	int id = 0;
@@ -72,4 +77,7 @@ void	Membre::playAnimation(std::string animName) {
 		id++;
 	}
 	_animID = -1;
+	for (Child &child : this->childrens) {
+		child.membre->playAnimation(animName);
+	}
 }

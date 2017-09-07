@@ -22,6 +22,7 @@ class Animation {
 
 		void		reset();
 	private:
+		Transform	_offsetTransform;
 		uint32_t	_lastAnimUpdate;
 		uint32_t	_frameCount;
 		uint32_t	_nextIndex;				//Next index in keyFrame vector

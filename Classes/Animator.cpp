@@ -26,6 +26,8 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 		while (getline(animFile, line)) {
 			char lineChar[line.size() + 1];
 			strcpy(lineChar, line.c_str());
+			if (lineChar[0] == '#')
+				continue;
 			int i = 0;
 			while (lineChar[i] && lineChar[i] != ':') {
 				i++;
@@ -38,6 +40,10 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 					": %d (%f,%f,%f) (%f,%f,%f) (%f,%f,%f)",
 					&frame, &pos.x, &pos.y, &pos.z, &rot.x, &rot.y, &rot.z,
 					&sca.x, &sca.y, &sca.z);
+			rot.x = rot.x * (M_PI / 180.0f);
+			rot.y = rot.y * (M_PI / 180.0f);
+			rot.z = rot.z * (M_PI / 180.0f);
+			rot.print();
 			std::cout << "ret: " << ret << std::endl;
 
 			int child;
@@ -56,8 +62,10 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 			}
 			Membre *membre = model->mainMembre;
 			for (child = 1; child < childStack.size(); child++) {
-				if (childStack[child] < membre->childrens.size())
+				if (childStack[child] < membre->childrens.size()) {
+					std::cout << "new membre" << std::endl;
 					membre = membre->childrens[childStack[child]].membre;
+				}
 			}
 			KeyFrame keyframe;
 			keyframe.frame = frame;
