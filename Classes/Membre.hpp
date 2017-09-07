@@ -22,12 +22,14 @@ class Membre {
 		std::vector<Child>		childrens;
 		Vec3					origin;
 
+		Matrix					modelMat;
 		Transform				transform;
 		Vec3					color;
 
 		void applyTransform(Membre *parent);
+		void applyTransform(Membre *parent, Vec3 jointure);
 		Animation				animation;
 
 		std::vector<Vec4>		pushColor(std::vector<Vec4> &colors);
-		std::vector<Matrix>		pushBone(std::vector<Matrix> &bones);
+		void		pushBone(std::vector<Matrix> &bones);
 };

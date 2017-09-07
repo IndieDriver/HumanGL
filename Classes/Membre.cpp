@@ -21,14 +21,24 @@ Membre &	Membre::operator=(Membre const & rhs) {
 
 void 	Membre::applyTransform(Membre *parent) {
 	//parent->color.print();
-	//transform = animation.updateTransform(transform);
+	//this->transform = animation.updateTransform(this->transform);
+	this->modelMat = modelMatrix(this->transform);
 
+	for (Child & child : childrens) {
+		child.membre->applyTransform(this, child.jointure);
+	}
+}
+
+void 	Membre::applyTransform(Membre *parent, Vec3 jointure) {
+	//parent->color.print();
 	if (parent != nullptr) {
-
-		//transform = transform * parent->transform; //a decomposer
+		//this->transform = animation.updateTransform(transform);
+		Transform newTrans = this->transform;
+		newTrans.position -= jointure;
+		this->modelMat = modelMatrix(newTrans) * parent->modelMat;
 	}
 	for (Child & child : childrens) {
-		child.membre->applyTransform(this);
+		child.membre->applyTransform(this, child.jointure);
 	}
 }
 
@@ -40,10 +50,9 @@ std::vector<Vec4> Membre::pushColor(std::vector<Vec4> &colors) {
 	return (colors);
 }
 
-std::vector<Matrix> Membre::pushBone(std::vector<Matrix> &bones) {
-	bones.push_back(modelMatrix(this->transform));
+void Membre::pushBone(std::vector<Matrix> &bones) {
+	bones.push_back(this->modelMat);
 	for (Child & child : childrens) {
-		bones = child.membre->pushBone(bones);
+		child.membre->pushBone(bones);
 	}
-	return (bones);
 }
