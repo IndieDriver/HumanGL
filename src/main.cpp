@@ -50,8 +50,7 @@ int main(int argc, char *argv[]) {
 	SDL_ShowCursor(SDL_DISABLE);
 	SDL_SetWindowGrab(env.window, SDL_TRUE);
 	SDL_SetRelativeMouseMode(SDL_TRUE);
-	Camera camera(Vec3(0.0f, 0.0f, 70.0f), Vec3(0.0f, 0.0f, 0.0f),
-			env.width, env.height);
+	Camera camera(Vec3(0.0f, 0.0f, 70.0f), env.width, env.height);
 	Animator animator;
 	Skeleton skel;
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
