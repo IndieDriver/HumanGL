@@ -58,7 +58,7 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 				childStack.push_back(child);
 			}
 			if (childStack.size() == 0) {
-				return ;
+				continue;
 			}
 			Membre *membre = model->mainMembre;
 			for (child = 1; child < childStack.size(); child++) {
