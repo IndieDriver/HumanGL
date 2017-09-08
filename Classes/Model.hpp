@@ -28,9 +28,10 @@ class Model {
 		bool toSee = false;
 		uint32_t	nb_membres;
 
-
+		std::string nextAnimation;
 	private:
 		int		_nb_vertex;
 		GLuint	_vao;
 		std::vector<Vertex> vertices;
+		void	changeAnimation();
 };

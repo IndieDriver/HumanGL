@@ -35,6 +35,9 @@ class Membre {
 		void					pushBone(std::vector<Matrix> &bones);
 		void					pushColor(std::vector<Vec4> &color);
 
+		bool					animationIsEnded();
+		void					endAnimation();
+
 	private:
 		int32_t					_animID;
 };

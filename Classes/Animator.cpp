@@ -43,8 +43,6 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 			rot.x = rot.x * (M_PI / 180.0f);
 			rot.y = rot.y * (M_PI / 180.0f);
 			rot.z = rot.z * (M_PI / 180.0f);
-			rot.print();
-			std::cout << "ret: " << ret << std::endl;
 
 			int child;
 			std::vector<int> childStack;
@@ -54,7 +52,6 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 				i++;
 				if (ret == 0)
 					continue;
-				std::cout << "child: " << child << std::endl;
 				childStack.push_back(child);
 			}
 			if (childStack.size() == 0) {
@@ -63,7 +60,6 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 			Membre *membre = model->mainMembre;
 			for (child = 1; child < childStack.size(); child++) {
 				if (childStack[child] < membre->childrens.size()) {
-					std::cout << "new membre" << std::endl;
 					membre = membre->childrens[childStack[child]].membre;
 				}
 			}
@@ -90,5 +86,6 @@ void	Animator::loadAnim(std::string filename, Model *model) {
 }
 
 void	Animator::playAnim(std::string name, Model *model) {
-	model->mainMembre->playAnimation(name);
+	model->nextAnimation = name;
+	model->mainMembre->endAnimation();
 }

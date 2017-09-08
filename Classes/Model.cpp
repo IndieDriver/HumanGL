@@ -38,7 +38,9 @@ Model &	Model::operator=(Model const & rhs) {
 void	Model::draw(const Shader &shader) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader.use();
-
+	if (!this->nextAnimation.empty()) {
+		changeAnimation();
+	}
 	mainMembre->applyTransform(nullptr);
 
 
@@ -65,4 +67,13 @@ void	Model::draw(const Shader &shader) {
 	glBindVertexArray(this->_vao);
 //	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), this->nb_membres);
+}
+
+void	Model::changeAnimation() {
+	bool isEnded;
+	isEnded = this->mainMembre->animationIsEnded();
+	if (isEnded) {
+		this->mainMembre->playAnimation(this->nextAnimation);
+		this->nextAnimation.clear();
+	}
 }

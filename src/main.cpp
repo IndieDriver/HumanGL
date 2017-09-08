@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
 	Model model(data);
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
+	animator.loadAnim("Anims/jump.anim", &model);
 	animator.playAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
@@ -74,6 +75,9 @@ int main(int argc, char *argv[]) {
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
 				quit = true;
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_j) {
+				animator.playAnim("Anims/jump.anim", &model);
 			}
 		}
 		const uint8_t* currentKeyStates = SDL_GetKeyboardState(NULL);

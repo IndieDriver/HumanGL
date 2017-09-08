@@ -2,12 +2,13 @@
 
 Animation::Animation(std::string animName) {
     this->name = animName;
-    _lastAnimUpdate = 0;
-    _frameCount = 0;
-    _nextIndex = 0;
-    _offsetTransform = {{0.0f, 0.0f, 0.0f},
+    this->_lastAnimUpdate = 0;
+    this->_frameCount = 0;
+    this->_nextIndex = 0;
+    this->_offsetTransform = {{0.0f, 0.0f, 0.0f},
 			{0.0f, 0.0f, 0.0f},
 			{0.0f, 0.0f, 0.0f}};
+    this->_animationState = AnimState::waiting;
 }
 
 Animation::Animation(Animation const & src) {
@@ -25,6 +26,8 @@ Animation &	Animation::operator=(Animation const & rhs) {
 	this->_lastAnimUpdate = rhs._lastAnimUpdate;
 	this->_frameCount = rhs._frameCount;
 	this->_nextIndex = rhs._nextIndex;
+	this->_offsetTransform = rhs._offsetTransform;
+	this->_animationState = rhs._animationState;
     }
     return (*this);
 }
@@ -34,7 +37,11 @@ Transform	Animation::updateTransform(Transform transform) {
 	this->_lastAnimUpdate = SDL_GetTicks();
     uint32_t current_time = SDL_GetTicks();
     uint32_t elapsed_time = current_time - this->_lastAnimUpdate;
-    if (elapsed_time > (1000 / 60)) {
+    if (_animationState != AnimState::finished
+	    && elapsed_time > (1000 / 60)) {
+	if (_animationState == AnimState::waiting) {
+	    _animationState = AnimState::running;
+	}
 	this->_lastAnimUpdate = current_time;
 	transform = interpolate(transform, keyFrames[this->_nextIndex].transform,
 		keyFrames[this->_nextIndex].frame - _frameCount);
@@ -47,6 +54,9 @@ Transform	Animation::updateTransform(Transform transform) {
 		this->_offsetTransform = {{0.0f, 0.0f, 0.0f},
 					{0.0f, 0.0f, 0.0f},
 					{0.0f, 0.0f, 0.0f}};
+		if (_animationState == AnimState::ending) {
+		    this->_animationState = AnimState::finished;
+		}
 	    }
 	}
 	_frameCount++;
@@ -74,13 +84,6 @@ Transform	Animation::interpolate(Transform currentTransform, Transform targetTra
     return (currentTransform);
 }
 
-/*
-void		Animation::init() {
-    this->_offsetTransfrom = {{0.0f, 0.0f, 0.0f},
-			    {0.0f, 0.0f, 0.0f},
-			    {0.0f, 0.0f, 0.0f}};
-} */
-
 void		Animation::reset() {
     this->_lastAnimUpdate = 0;
     this->_frameCount = 0;
@@ -88,4 +91,16 @@ void		Animation::reset() {
     this->_offsetTransform = {{0.0f, 0.0f, 0.0f},
 			    {0.0f, 0.0f, 0.0f},
 			    {0.0f, 0.0f, 0.0f}};
+    this->_animationState = AnimState::waiting;
 }
+
+AnimState	Animation::getState() {
+    return (this->_animationState);
+}
+
+void		Animation::markForEnd() {
+    if (this->_animationState == AnimState::running) {
+	this->_animationState = AnimState::ending;
+    }
+}
+

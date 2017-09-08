@@ -77,16 +77,44 @@ void	Membre::playAnimation(std::string animName) {
 		animations[this->_animID].reset();
 	}
 	int id = 0;
+	bool animSet = false;
 	for (Animation &animation : animations) {
 		if (animation.name == animName) {
+			animSet = true;
 			_animID = id;
 			animations[this->_animID].reset();
-			return ;
 		}
 		id++;
 	}
-	_animID = -1;
+	if (!animSet)
+		_animID = -1;
 	for (Child &child : this->childrens) {
 		child.membre->playAnimation(animName);
+	}
+}
+
+bool	Membre::animationIsEnded() {
+	bool ended = true;
+	if (this->_animID != -1 && this->_animID < animations.size()) {
+		AnimState state = animations[_animID].getState();
+		if (state == AnimState::running
+				|| state == AnimState::ending) {
+			return (false);
+		}
+	}
+	for (Child &child : this->childrens) {
+		ended = child.membre->animationIsEnded();
+		if (ended == false)
+			return (ended);
+	}
+	return (ended);
+}
+
+void	Membre::endAnimation() {
+	if (this->_animID != -1 && this->_animID < animations.size()) {
+		animations[_animID].markForEnd();
+	}
+	for (Child &child : this->childrens) {
+		child.membre->endAnimation();
 	}
 }

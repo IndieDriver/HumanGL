@@ -10,6 +10,13 @@ struct KeyFrame {
 	Transform	transform;
 };
 
+enum class AnimState {
+	waiting,
+	running,
+	ending,
+	finished
+};
+
 class Animation {
 	public:
 		Animation(std::string animName);
@@ -21,11 +28,14 @@ class Animation {
 		Transform	updateTransform(Transform transform);
 
 		void		reset();
+		void		markForEnd();	//Set the animation to stop at the end of this cycle
+		AnimState	getState();
 	private:
 		Transform	_offsetTransform;
 		uint32_t	_lastAnimUpdate;
 		uint32_t	_frameCount;
 		uint32_t	_nextIndex;				//Next index in keyFrame vector
+		AnimState	_animationState;
 
 		Transform interpolate(Transform currentTransform,
 				Transform targetTransform, int step);
