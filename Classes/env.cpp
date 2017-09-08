@@ -1,6 +1,8 @@
 #include "env.hpp"
 
-Env::Env(int width, int height) {
+Env::Env(int w, int h) {
+	width = w;
+	height = h;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		std::cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << std::endl;
 	} else {

@@ -12,4 +12,6 @@ class Env {
 		SDL_Window *window;
 		SDL_GLContext glContext;
 		SDL_Event sdlEvent;
+		int width;
+		int height;
 };

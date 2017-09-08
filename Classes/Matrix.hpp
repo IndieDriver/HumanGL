@@ -1,6 +1,6 @@
 #pragma once
-#include "Vec.hpp"
 #include "struct.hpp"
+#include "Vec.hpp"
 
 class Matrix {
     public:

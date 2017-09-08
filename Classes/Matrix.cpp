@@ -1,7 +1,7 @@
 #include "Matrix.hpp"
 
 Matrix::Matrix() {
-	set_identity();
+    set_identity();
 }
 
 void Matrix::print()
@@ -60,13 +60,13 @@ void Matrix::transpose() {
 
 Vec4 Matrix::operator*(const Vec4 &rhs) {
 
-	Vec4 result;
+    Vec4 result;
 
     result.x = (mat4[0] * rhs.x) + (mat4[4] * rhs.y) + (mat4[8] * rhs.z) + (mat4[12] * rhs.w);
     result.y = (mat4[1] * rhs.x) + (mat4[5] * rhs.y) + (mat4[9] * rhs.z) + (mat4[13] * rhs.w);
     result.z = (mat4[2] * rhs.x) + (mat4[6] * rhs.y) + (mat4[10] * rhs.z) + (mat4[14] * rhs.w);
     result.w = (mat4[3] * rhs.x) + (mat4[7] * rhs.y) + (mat4[11] * rhs.z) + (mat4[15] * rhs.w);
-	return (result);
+    return (result);
 }
 
 Matrix	Matrix::operator*(const Matrix &rhs)
@@ -106,119 +106,119 @@ Matrix inverse(const Matrix &m)
     int i;
 
     inv.mat4[0] = m.mat4[5]  * m.mat4[10] * m.mat4[15] -
-                  m.mat4[5]  * m.mat4[11] * m.mat4[14] -
-                  m.mat4[9]  * m.mat4[6]  * m.mat4[15] +
-                  m.mat4[9]  * m.mat4[7]  * m.mat4[14] +
-                  m.mat4[13] * m.mat4[6]  * m.mat4[11] -
-                  m.mat4[13] * m.mat4[7]  * m.mat4[10];
+        m.mat4[5]  * m.mat4[11] * m.mat4[14] -
+        m.mat4[9]  * m.mat4[6]  * m.mat4[15] +
+        m.mat4[9]  * m.mat4[7]  * m.mat4[14] +
+        m.mat4[13] * m.mat4[6]  * m.mat4[11] -
+        m.mat4[13] * m.mat4[7]  * m.mat4[10];
 
     inv.mat4[4] = -m.mat4[4]  * m.mat4[10] * m.mat4[15] +
-                  m.mat4[4]  * m.mat4[11] * m.mat4[14] +
-                  m.mat4[8]  * m.mat4[6]  * m.mat4[15] -
-                  m.mat4[8]  * m.mat4[7]  * m.mat4[14] -
-                  m.mat4[12] * m.mat4[6]  * m.mat4[11] +
-                  m.mat4[12] * m.mat4[7]  * m.mat4[10];
+        m.mat4[4]  * m.mat4[11] * m.mat4[14] +
+        m.mat4[8]  * m.mat4[6]  * m.mat4[15] -
+        m.mat4[8]  * m.mat4[7]  * m.mat4[14] -
+        m.mat4[12] * m.mat4[6]  * m.mat4[11] +
+        m.mat4[12] * m.mat4[7]  * m.mat4[10];
 
     inv.mat4[8] = m.mat4[4]  * m.mat4[9] * m.mat4[15] -
-                  m.mat4[4]  * m.mat4[11] * m.mat4[13] -
-                  m.mat4[8]  * m.mat4[5] * m.mat4[15] +
-                  m.mat4[8]  * m.mat4[7] * m.mat4[13] +
-                  m.mat4[12] * m.mat4[5] * m.mat4[11] -
-                  m.mat4[12] * m.mat4[7] * m.mat4[9];
+        m.mat4[4]  * m.mat4[11] * m.mat4[13] -
+        m.mat4[8]  * m.mat4[5] * m.mat4[15] +
+        m.mat4[8]  * m.mat4[7] * m.mat4[13] +
+        m.mat4[12] * m.mat4[5] * m.mat4[11] -
+        m.mat4[12] * m.mat4[7] * m.mat4[9];
 
     inv.mat4[12] = -m.mat4[4]  * m.mat4[9] * m.mat4[14] +
-                   m.mat4[4]  * m.mat4[10] * m.mat4[13] +
-                   m.mat4[8]  * m.mat4[5] * m.mat4[14] -
-                   m.mat4[8]  * m.mat4[6] * m.mat4[13] -
-                   m.mat4[12] * m.mat4[5] * m.mat4[10] +
-                   m.mat4[12] * m.mat4[6] * m.mat4[9];
+        m.mat4[4]  * m.mat4[10] * m.mat4[13] +
+        m.mat4[8]  * m.mat4[5] * m.mat4[14] -
+        m.mat4[8]  * m.mat4[6] * m.mat4[13] -
+        m.mat4[12] * m.mat4[5] * m.mat4[10] +
+        m.mat4[12] * m.mat4[6] * m.mat4[9];
 
     inv.mat4[1] = -m.mat4[1]  * m.mat4[10] * m.mat4[15] +
-                  m.mat4[1]  * m.mat4[11] * m.mat4[14] +
-                  m.mat4[9]  * m.mat4[2] * m.mat4[15] -
-                  m.mat4[9]  * m.mat4[3] * m.mat4[14] -
-                  m.mat4[13] * m.mat4[2] * m.mat4[11] +
-                  m.mat4[13] * m.mat4[3] * m.mat4[10];
+        m.mat4[1]  * m.mat4[11] * m.mat4[14] +
+        m.mat4[9]  * m.mat4[2] * m.mat4[15] -
+        m.mat4[9]  * m.mat4[3] * m.mat4[14] -
+        m.mat4[13] * m.mat4[2] * m.mat4[11] +
+        m.mat4[13] * m.mat4[3] * m.mat4[10];
 
     inv.mat4[5] = m.mat4[0]  * m.mat4[10] * m.mat4[15] -
-                  m.mat4[0]  * m.mat4[11] * m.mat4[14] -
-                  m.mat4[8]  * m.mat4[2] * m.mat4[15] +
-                  m.mat4[8]  * m.mat4[3] * m.mat4[14] +
-                  m.mat4[12] * m.mat4[2] * m.mat4[11] -
-                  m.mat4[12] * m.mat4[3] * m.mat4[10];
+        m.mat4[0]  * m.mat4[11] * m.mat4[14] -
+        m.mat4[8]  * m.mat4[2] * m.mat4[15] +
+        m.mat4[8]  * m.mat4[3] * m.mat4[14] +
+        m.mat4[12] * m.mat4[2] * m.mat4[11] -
+        m.mat4[12] * m.mat4[3] * m.mat4[10];
 
     inv.mat4[9] = -m.mat4[0]  * m.mat4[9] * m.mat4[15] +
-                  m.mat4[0]  * m.mat4[11] * m.mat4[13] +
-                  m.mat4[8]  * m.mat4[1] * m.mat4[15] -
-                  m.mat4[8]  * m.mat4[3] * m.mat4[13] -
-                  m.mat4[12] * m.mat4[1] * m.mat4[11] +
-                  m.mat4[12] * m.mat4[3] * m.mat4[9];
+        m.mat4[0]  * m.mat4[11] * m.mat4[13] +
+        m.mat4[8]  * m.mat4[1] * m.mat4[15] -
+        m.mat4[8]  * m.mat4[3] * m.mat4[13] -
+        m.mat4[12] * m.mat4[1] * m.mat4[11] +
+        m.mat4[12] * m.mat4[3] * m.mat4[9];
 
     inv.mat4[13] = m.mat4[0]  * m.mat4[9] * m.mat4[14] -
-                   m.mat4[0]  * m.mat4[10] * m.mat4[13] -
-                   m.mat4[8]  * m.mat4[1] * m.mat4[14] +
-                   m.mat4[8]  * m.mat4[2] * m.mat4[13] +
-                   m.mat4[12] * m.mat4[1] * m.mat4[10] -
-                   m.mat4[12] * m.mat4[2] * m.mat4[9];
+        m.mat4[0]  * m.mat4[10] * m.mat4[13] -
+        m.mat4[8]  * m.mat4[1] * m.mat4[14] +
+        m.mat4[8]  * m.mat4[2] * m.mat4[13] +
+        m.mat4[12] * m.mat4[1] * m.mat4[10] -
+        m.mat4[12] * m.mat4[2] * m.mat4[9];
 
     inv.mat4[2] = m.mat4[1]  * m.mat4[6] * m.mat4[15] -
-                  m.mat4[1]  * m.mat4[7] * m.mat4[14] -
-                  m.mat4[5]  * m.mat4[2] * m.mat4[15] +
-                  m.mat4[5]  * m.mat4[3] * m.mat4[14] +
-                  m.mat4[13] * m.mat4[2] * m.mat4[7] -
-                  m.mat4[13] * m.mat4[3] * m.mat4[6];
+        m.mat4[1]  * m.mat4[7] * m.mat4[14] -
+        m.mat4[5]  * m.mat4[2] * m.mat4[15] +
+        m.mat4[5]  * m.mat4[3] * m.mat4[14] +
+        m.mat4[13] * m.mat4[2] * m.mat4[7] -
+        m.mat4[13] * m.mat4[3] * m.mat4[6];
 
     inv.mat4[6] = -m.mat4[0]  * m.mat4[6] * m.mat4[15] +
-                  m.mat4[0]  * m.mat4[7] * m.mat4[14] +
-                  m.mat4[4]  * m.mat4[2] * m.mat4[15] -
-                  m.mat4[4]  * m.mat4[3] * m.mat4[14] -
-                  m.mat4[12] * m.mat4[2] * m.mat4[7] +
-                  m.mat4[12] * m.mat4[3] * m.mat4[6];
+        m.mat4[0]  * m.mat4[7] * m.mat4[14] +
+        m.mat4[4]  * m.mat4[2] * m.mat4[15] -
+        m.mat4[4]  * m.mat4[3] * m.mat4[14] -
+        m.mat4[12] * m.mat4[2] * m.mat4[7] +
+        m.mat4[12] * m.mat4[3] * m.mat4[6];
 
     inv.mat4[10] = m.mat4[0]  * m.mat4[5] * m.mat4[15] -
-                   m.mat4[0]  * m.mat4[7] * m.mat4[13] -
-                   m.mat4[4]  * m.mat4[1] * m.mat4[15] +
-                   m.mat4[4]  * m.mat4[3] * m.mat4[13] +
-                   m.mat4[12] * m.mat4[1] * m.mat4[7] -
-                   m.mat4[12] * m.mat4[3] * m.mat4[5];
+        m.mat4[0]  * m.mat4[7] * m.mat4[13] -
+        m.mat4[4]  * m.mat4[1] * m.mat4[15] +
+        m.mat4[4]  * m.mat4[3] * m.mat4[13] +
+        m.mat4[12] * m.mat4[1] * m.mat4[7] -
+        m.mat4[12] * m.mat4[3] * m.mat4[5];
 
     inv.mat4[14] = -m.mat4[0]  * m.mat4[5] * m.mat4[14] +
-                   m.mat4[0]  * m.mat4[6] * m.mat4[13] +
-                   m.mat4[4]  * m.mat4[1] * m.mat4[14] -
-                   m.mat4[4]  * m.mat4[2] * m.mat4[13] -
-                   m.mat4[12] * m.mat4[1] * m.mat4[6] +
-                   m.mat4[12] * m.mat4[2] * m.mat4[5];
+        m.mat4[0]  * m.mat4[6] * m.mat4[13] +
+        m.mat4[4]  * m.mat4[1] * m.mat4[14] -
+        m.mat4[4]  * m.mat4[2] * m.mat4[13] -
+        m.mat4[12] * m.mat4[1] * m.mat4[6] +
+        m.mat4[12] * m.mat4[2] * m.mat4[5];
 
     inv.mat4[3] = -m.mat4[1] * m.mat4[6] * m.mat4[11] +
-                  m.mat4[1] * m.mat4[7] * m.mat4[10] +
-                  m.mat4[5] * m.mat4[2] * m.mat4[11] -
-                  m.mat4[5] * m.mat4[3] * m.mat4[10] -
-                  m.mat4[9] * m.mat4[2] * m.mat4[7] +
-                  m.mat4[9] * m.mat4[3] * m.mat4[6];
+        m.mat4[1] * m.mat4[7] * m.mat4[10] +
+        m.mat4[5] * m.mat4[2] * m.mat4[11] -
+        m.mat4[5] * m.mat4[3] * m.mat4[10] -
+        m.mat4[9] * m.mat4[2] * m.mat4[7] +
+        m.mat4[9] * m.mat4[3] * m.mat4[6];
 
     inv.mat4[7] = m.mat4[0] * m.mat4[6] * m.mat4[11] -
-                  m.mat4[0] * m.mat4[7] * m.mat4[10] -
-                  m.mat4[4] * m.mat4[2] * m.mat4[11] +
-                  m.mat4[4] * m.mat4[3] * m.mat4[10] +
-                  m.mat4[8] * m.mat4[2] * m.mat4[7] -
-                  m.mat4[8] * m.mat4[3] * m.mat4[6];
+        m.mat4[0] * m.mat4[7] * m.mat4[10] -
+        m.mat4[4] * m.mat4[2] * m.mat4[11] +
+        m.mat4[4] * m.mat4[3] * m.mat4[10] +
+        m.mat4[8] * m.mat4[2] * m.mat4[7] -
+        m.mat4[8] * m.mat4[3] * m.mat4[6];
 
     inv.mat4[11] = -m.mat4[0] * m.mat4[5] * m.mat4[11] +
-                   m.mat4[0] * m.mat4[7] * m.mat4[9] +
-                   m.mat4[4] * m.mat4[1] * m.mat4[11] -
-                   m.mat4[4] * m.mat4[3] * m.mat4[9] -
-                   m.mat4[8] * m.mat4[1] * m.mat4[7] +
-                   m.mat4[8] * m.mat4[3] * m.mat4[5];
+        m.mat4[0] * m.mat4[7] * m.mat4[9] +
+        m.mat4[4] * m.mat4[1] * m.mat4[11] -
+        m.mat4[4] * m.mat4[3] * m.mat4[9] -
+        m.mat4[8] * m.mat4[1] * m.mat4[7] +
+        m.mat4[8] * m.mat4[3] * m.mat4[5];
 
     inv.mat4[15] = m.mat4[0] * m.mat4[5] * m.mat4[10] -
-                   m.mat4[0] * m.mat4[6] * m.mat4[9] -
-                   m.mat4[4] * m.mat4[1] * m.mat4[10] +
-                   m.mat4[4] * m.mat4[2] * m.mat4[9] +
-                   m.mat4[8] * m.mat4[1] * m.mat4[6] -
-                   m.mat4[8] * m.mat4[2] * m.mat4[5];
+        m.mat4[0] * m.mat4[6] * m.mat4[9] -
+        m.mat4[4] * m.mat4[1] * m.mat4[10] +
+        m.mat4[4] * m.mat4[2] * m.mat4[9] +
+        m.mat4[8] * m.mat4[1] * m.mat4[6] -
+        m.mat4[8] * m.mat4[2] * m.mat4[5];
 
     det = 1.0f /
-          (m.mat4[0] * inv.mat4[0] + m.mat4[1] * inv.mat4[4] + m.mat4[2] * inv.mat4[8] + m.mat4[3] * inv.mat4[12]);
+        (m.mat4[0] * inv.mat4[0] + m.mat4[1] * inv.mat4[4] + m.mat4[2] * inv.mat4[8] + m.mat4[3] * inv.mat4[12]);
     for (i = 0; i < 16; i++)
         out.mat4[i] = inv.mat4[i] * det;
 
@@ -338,8 +338,8 @@ Matrix	modelMatrix(Vec3 pos, Vec3 rot, Vec3 scale)
     mrot = rotMatrix(fmod(rot.x, 360.0f), fmod(rot.y, 360.0f), fmod(rot.z, 360.0f));
     mtran = transMatrix(pos.x, pos.y, pos.z);
     mscale = scaleMatrix(scale.x, scale.y, scale.z);
-	tmp = mscale * mrot;
-	model = tmp * mtran;
+    tmp = mscale * mrot;
+    model = tmp * mtran;
     return (model);
 }
 
@@ -357,8 +357,8 @@ Matrix	modelMatrix(Transform transform)
     mrot = rotMatrix(transform.rotation);
     mtran = transMatrix(transform.position);
     mscale = scaleMatrix(transform.scale);
-	tmp = mscale * mrot;
-	model = tmp * mtran;
+    tmp = mscale * mrot;
+    model = tmp * mtran;
     return (model);
 }
 
@@ -457,7 +457,7 @@ void printMatrix(float array[16])
 }
 
 Matrix  getMVP(Matrix model, Matrix view, Matrix proj) {
-	Matrix tmp = model * view;
+    Matrix tmp = model * view;
     tmp = tmp * proj;
-	return (tmp);
+    return (tmp);
 }

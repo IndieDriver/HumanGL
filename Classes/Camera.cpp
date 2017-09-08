@@ -1,30 +1,28 @@
-#include "Camera.h"
+#include "Camera.hpp"
 
-Camera::Camera(Vec3 position, Vec3 targetPosition, int w, int h)
+Camera::Camera(Vec3 position, int w, int h)
 {
     pos = position;
 
     width = w;
     height = h;
 
-    (void)targetPosition;
     mouseXpos = ((float)w / 2.0f);
     mouseYpos = ((float)h / 2.0f);
 
     verAngle = 0.0f;
     horAngle = 180.0f * (M_PI / 180.0f);
-    proj = projMatrix(45.0f, ((float)WIDTH /(float)HEIGHT));
+    proj = projMatrix(50, w / h);
     update();
 }
 
 void Camera::update(){
-    queryInput();
-    double currentTime = glfwGetTime();
+    double currentTime = SDL_GetTicks();
     deltaTime = (float)currentTime - (float)lastTime;
     lastTime = (float)currentTime;
     if (mouseMoved) {
-	horAngle += 0.5f * deltaTime * (width / 2.0f - mouseXpos);
-	verAngle += 0.5f * deltaTime * (height / 2.0f - mouseYpos);
+	horAngle += 0.000005f * deltaTime * mouseXpos;
+	verAngle += 0.000005f * deltaTime * mouseYpos;
 	mouseMoved = false;
     }
     dir = Vec3(cos(verAngle) * sin(horAngle),
@@ -42,45 +40,28 @@ void Camera::update(){
 	    up);
 }
 
-Matrix getMVP(Matrix model, Matrix view, Matrix proj){
-    return (model * view * proj);
-}
-
-void Camera::queryInput(SDL_Event sdlevent) {
-    if (env.sdlEvent.key.keysym.sym == SDLK_LSHIFT) {
-	speed = 9.0f;
+void Camera::queryInput(const uint8_t *keyStates) {
+    if (keyStates[SDL_SCANCODE_LSHIFT]) {
+	speed = 0.09f;
     } else {
-	speed = 3.0f;
+	speed = 0.03f;
     }
-
-    if (env.sdlEvent.key.keysym.sym == SDLK_w) {
+    if (keyStates[SDL_SCANCODE_W] || keyStates[SDL_SCANCODE_UP]) {
 	Vec3 tmp = dir * speed * deltaTime;
 	pos = pos + tmp;
     }
-    if (env.sdlEvent.key.keysym.sym == SDLK_s) {
+    if (keyStates[SDL_SCANCODE_S] || keyStates[SDL_SCANCODE_DOWN]) {
 	Vec3 tmp = dir * speed * deltaTime;
 	pos = pos - tmp;
     }
-    if (env.sdlEvent.key.keysym.sym == SDLK_d) {
+    if (keyStates[SDL_SCANCODE_A] || keyStates[SDL_SCANCODE_LEFT]) {
 	Vec3 right = up.cross(dir);
 	Vec3 tmp = right * speed * deltaTime;
 	pos = pos - tmp;
     }
-    if (env.sdlEvent.key.keysym.sym == SDLK_a) {
+    if (keyStates[SDL_SCANCODE_D] || keyStates[SDL_SCANCODE_RIGHT]) {
 	Vec3 right = up.cross(dir);
 	Vec3 tmp = right * speed * deltaTime;
 	pos = pos + tmp;
-    }
-    if (inputHandler->mouseDisabled)
-	return;
-    if (inputHandler->mousex != mouseXpos || inputHandler->mousey != mouseYpos) {
-	mouseXpos = inputHandler->mousex;
-	mouseYpos = inputHandler->mousey;
-	if (inputHandler->edgeDetector) {
-	    horAngle -= 0.5f * deltaTime * (width / 2.0f - mouseXpos);
-	    verAngle -= 0.5f * deltaTime * (height / 2.0f - mouseYpos);
-	    inputHandler->edgeDetector = false;
-	}
-	mouseMoved = true;
     }
 }
