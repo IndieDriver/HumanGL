@@ -29,11 +29,11 @@ class Membre {
 		void applyTransform(Membre *parent);
 		void applyTransform(Membre *parent, Vec3 jointure);
 
-		std::vector<Vec4>		pushColor(std::vector<Vec4> &colors);
-		void					pushBone(std::vector<Matrix> &bones);
-
 		std::vector<Animation>	animations;
 		void					playAnimation(std::string animName);
+		void					pushMembre(std::vector<Membre*> &membre);
+		void					pushBone(std::vector<Matrix> &bones);
+		void					pushColor(std::vector<Vec4> &color);
 
 	private:
 		int32_t					_animID;

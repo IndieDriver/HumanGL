@@ -36,30 +36,39 @@ void 	Membre::applyTransform(Membre *parent, Vec3 jointure) {
 		if (this->_animID != -1 && this->_animID < animations.size()) {
 			this->transform = animations[_animID].updateTransform(transform);
 		}
+
 		Transform newTrans = this->transform;
 
 		newTrans.position -= jointure;
-		newTrans.position -= this->origin;
 
-		this->modelMat = modelMatrix(newTrans) * parent->modelMat;
+		Matrix scalinInv = modelMatrix ({0,0,0}, {0,0,0}, {1/parent->transform.scale.x, 1/parent->transform.scale.y, 1/parent->transform.scale.z});
+		this->modelMat = scalinInv * parent->modelMat;
+		this->modelMat = modelMatrix(newTrans) * this->modelMat;
+		this->modelMat = modelMatrix ({-this->origin.x,-this->origin.y,-this->origin.z}, {0,0,0}, {1,1,1}) * this->modelMat;
 	}
 	for (Child & child : childrens) {
 		child.membre->applyTransform(this, child.jointure);
 	}
 }
 
-std::vector<Vec4> Membre::pushColor(std::vector<Vec4> &colors) {
+void	Membre::pushColor(std::vector<Vec4> &colors) {
 	colors.push_back(this->color);
 	for (Child & child : childrens) {
-		colors = child.membre->pushColor(colors);
+		child.membre->pushColor(colors);
 	}
-	return (colors);
 }
 
 void Membre::pushBone(std::vector<Matrix> &bones) {
 	bones.push_back(this->modelMat);
 	for (Child & child : childrens) {
 		child.membre->pushBone(bones);
+	}
+}
+
+void Membre::pushMembre(std::vector<Membre*> &membreVect) {
+	membreVect.push_back(this);
+	for (Child & child : childrens) {
+		child.membre->pushMembre(membreVect);
 	}
 }
 

@@ -43,11 +43,11 @@ void	Model::draw(const Shader &shader) {
 
 
 
-	Matrix MVP = getMVP(model, viewMatrix({50,0,0}, {-1,0,0}, {0,1,0}), projMatrix(50, 1208/720));
+	Matrix MVP = getMVP(model, viewMatrix({0,0,70}, {0,0,-1}, {0,1,0}), projMatrix(50, 1208/720));
 
 	std::vector<Matrix> bones;
 	std::vector<Vec4> colors;
-	colors = mainMembre->pushColor(colors);
+	mainMembre->pushColor(colors);
 	mainMembre->pushBone(bones);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "MVP"), 1, GL_FALSE, (const GLfloat*)&MVP.mat4);
