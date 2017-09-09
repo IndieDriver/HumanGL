@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 find_package(OpenGL REQUIRED)
 find_package(SDL2 REQUIRED)
 
+include_directories(third-party/glad/include)
 include_directories(${SDL2_INCLUDE_DIRS})
 include_directories(${OPENGL_INCLUDE_DIR})
 include_directories(Classes)
@@ -25,9 +26,11 @@ set(SOURCE_FILES
 	Classes/Animator.cpp
 	Classes/Skeleton.cpp
 	Classes/Camera.cpp
+	third-party/glad/src/glad.c
 	)
 
 add_executable(HumanGL ${SOURCE_FILES})
 
+target_link_libraries(HumanGL ${CMAKE_DL_LIBS})
 target_link_libraries(HumanGL ${SDL2_LIBRARIES})
 target_link_libraries(HumanGL ${OPENGL_LIBRARIES})
