@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <cstdio>
-#include "model.hpp"
+#include "Model.hpp"
 #include "struct.hpp"
 #include "Vec.hpp"
 

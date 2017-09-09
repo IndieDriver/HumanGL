@@ -1,5 +1,5 @@
 #pragma once
-#include <OpenGL/gl3.h>
+#include <glad/glad.h>
 #include <SDL.h>
 #include <iostream>
 

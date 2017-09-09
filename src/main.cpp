@@ -1,6 +1,6 @@
 #include "env.hpp"
 #include "Camera.hpp"
-#include "model.hpp"
+#include "Model.hpp"
 #include "Animator.hpp"
 #include "Shader.hpp"
 #include "Skeleton.hpp"

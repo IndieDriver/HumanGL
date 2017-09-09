@@ -22,6 +22,9 @@ Env::Env(int w, int h) {
 			if(glContext == NULL) {
 				std::cout << "OpenGL context could not be created! SDL Error: " << SDL_GetError() << std::endl;
 			}
+			if (!gladLoadGLLoader(SDL_GL_GetProcAddress)) {
+				std::cout << "Failed to initialize OpenGL context" << std::endl;
+			}
 
 			glEnable(GL_DEPTH_TEST);
 
