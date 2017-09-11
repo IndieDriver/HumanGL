@@ -17,9 +17,6 @@ public:
     float   length();
     void    print();
 
-    //Vec2    cross(Vec2 v2);
-    //Vec2    scale(float fact);
-    //float   dot(Vec2 v2);
     Vec2    operator+(const Vec2 &rhs);
     Vec2    operator-(const Vec2 &rhs);
     Vec2    operator*(const Vec2 &rhs);

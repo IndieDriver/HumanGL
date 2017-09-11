@@ -3,7 +3,7 @@
 
 Model::Model(std::vector<Vertex> vert) {
 	this->vertices = vert;
-	GLuint	vbo; //One per vertex field
+	GLuint	vbo; 
 
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -63,7 +63,6 @@ void	Model::draw(const Shader &shader) {
 	}
 
 	glBindVertexArray(this->_vao);
-//	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 	glDrawArraysInstanced(GL_TRIANGLES, 0, vertices.size(), this->nb_membres);
 }
 

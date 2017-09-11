@@ -75,11 +75,8 @@ int main(int argc, char *argv[]) {
 	Skeleton skel;
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
-	//Model *model = loadHuman();
-	Model *model = loadSpider();
-
+	Model *model = loadHuman();
 	while (!quit) {
-		//model.mainMembre->transform.rotation.y += 0.01;
 		while (SDL_PollEvent(&env.sdlEvent) != 0) {
 			switch (env.sdlEvent.type) {
 				case SDL_QUIT:
@@ -108,11 +105,11 @@ int main(int argc, char *argv[]) {
 		if (currentKeyStates[SDL_SCANCODE_I]) {
 			animator.playAnim("Anims/idle.anim", model);
 		}
-		if (currentKeyStates[SDL_SCANCODE_KP_1]) {
+		if (currentKeyStates[SDL_SCANCODE_1]) {
 			delete model;
 			model = loadHuman();
 		}
-		if (currentKeyStates[SDL_SCANCODE_KP_2]) {
+		if (currentKeyStates[SDL_SCANCODE_2]) {
 			delete model;
 			model = loadSpider();
 		}
