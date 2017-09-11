@@ -57,7 +57,6 @@ int main(int argc, char *argv[]) {
 	animator.loadAnim("Anims/walk.anim", &model);
 	animator.loadAnim("Anims/jump.anim", &model);
 	animator.playAnim("Anims/jump.anim", &model);
-
 	while (!quit) {
 		//model.mainMembre->transform.rotation.y += 0.01;
 		while (SDL_PollEvent(&env.sdlEvent) != 0) {
@@ -71,17 +70,17 @@ int main(int argc, char *argv[]) {
 					camera.mouseMoved = true;
 					break ;
 			}
-			if (env.sdlEvent.key.keysym.sym == SDLK_ESCAPE) {
-				quit = true;
-			}
-			if (env.sdlEvent.key.keysym.sym == SDLK_j) {
-				animator.playAnim("Anims/jump.anim", &model);
-			}
-			if (env.sdlEvent.key.keysym.sym == SDLK_h) {
-				animator.playAnim("Anims/walk.anim", &model);
-			}
 		}
 		const uint8_t* currentKeyStates = SDL_GetKeyboardState(NULL);
+		if (currentKeyStates[SDL_SCANCODE_ESCAPE]) {
+			quit = true;
+		}
+		if (currentKeyStates[SDL_SCANCODE_J]) {
+			animator.playAnim("Anims/jump.anim", &model);
+		}
+		if (currentKeyStates[SDL_SCANCODE_H]) {
+			animator.playAnim("Anims/walk.anim", &model);
+		}
 		camera.queryInput(currentKeyStates);
 		camera.update();
 		model.view = camera.view;

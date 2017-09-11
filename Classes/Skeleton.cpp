@@ -72,7 +72,12 @@ void		readJoint(std::fstream &skelFile, Model *model,
 			continue;
 		if (parentID != childID) {
 			Child child;
-			child.membre = membreVector[childID];
+			if (childID < membreVector.size()) {
+				child.membre = membreVector[childID];
+			} else {
+				std::cerr << "Invalid skeleton file" << std::endl;
+				exit(0);
+			}
 			child.jointure = joint;
 			if (parentID < membreVector.size())
 				membreVector[parentID]->childrens.push_back(child);
