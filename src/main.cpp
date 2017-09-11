@@ -56,7 +56,8 @@ int main(int argc, char *argv[]) {
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
 	animator.loadAnim("Anims/jump.anim", &model);
-	animator.playAnim("Anims/walk.anim", &model);
+	animator.loadAnim("Anims/idle.anim", &model);
+	animator.playAnim("Anims/idle.anim", &model);
 
 	while (!quit) {
 		//model.mainMembre->transform.rotation.y += 0.01;
