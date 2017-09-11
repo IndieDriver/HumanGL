@@ -38,6 +38,9 @@ std::vector<MemberElement>	readMembre(std::fstream &skelFile) {
 				&el.transform.scale.x, &el.transform.scale.y,
 				&el.transform.scale.z,
 				&el.col.x, &el.col.y, &el.col.z);
+		el.transform.rotation.x = el.transform.rotation.x * (M_PI / 180.0f);
+		el.transform.rotation.y = el.transform.rotation.y * (M_PI / 180.0f);
+		el.transform.rotation.z = el.transform.rotation.z * (M_PI / 180.0f);
 		if (ret > 0) {
 			members.push_back(el);
 		} else {

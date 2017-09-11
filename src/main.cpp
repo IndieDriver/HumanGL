@@ -45,6 +45,29 @@ std::vector<Vertex> data = {
 	{{ 1.0f, -1.0f,  1.0f}, { 0.0f, -1.0f,  0.0f}}
 };
 
+Model 	*loadHuman() {
+	Model *model = new Model(data);
+	Animator animator;
+	Skeleton skel;
+	skel.loadSkeleton("human.skel", model);
+	animator.loadAnim("Anims/walk.anim", model);
+	animator.loadAnim("Anims/kame.anim", model);
+	animator.loadAnim("Anims/jump.anim", model);
+	animator.loadAnim("Anims/idle.anim", model);
+	animator.playAnim("Anims/walk.anim", model);
+	return (model);
+}
+
+Model	*loadSpider() {
+	Model *model = new Model(data);
+	Animator animator;
+	Skeleton skel;
+	skel.loadSkeleton("spider.skel", model);
+	animator.loadAnim("Anims/spiderwalk.anim", model);
+	animator.playAnim("Anims/spiderwalk.anim", model);
+	return (model);
+}
+
 int main(int argc, char *argv[]) {
 	Env env(1280, 720);
 	Camera camera(Vec3(0.0f, 0.0f, 120.0f), env.width, env.height);
@@ -52,13 +75,8 @@ int main(int argc, char *argv[]) {
 	Skeleton skel;
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
 	bool quit = false;
-	Model model(data);
-	skel.loadSkeleton("human.skel", &model);
-	animator.loadAnim("Anims/walk.anim", &model);
-	animator.loadAnim("Anims/kame.anim", &model);
-	animator.loadAnim("Anims/jump.anim", &model);
-	animator.loadAnim("Anims/idle.anim", &model);
-	animator.playAnim("Anims/walk.anim", &model);
+	//Model *model = loadHuman();
+	Model *model = loadSpider();
 
 	while (!quit) {
 		//model.mainMembre->transform.rotation.y += 0.01;
@@ -79,25 +97,34 @@ int main(int argc, char *argv[]) {
 			quit = true;
 		}
 		if (currentKeyStates[SDL_SCANCODE_J]) {
-			animator.playAnim("Anims/jump.anim", &model);
+			animator.playAnim("Anims/jump.anim", model);
 		}
 		if (currentKeyStates[SDL_SCANCODE_H]) {
-			animator.playAnim("Anims/walk.anim", &model);
+			animator.playAnim("Anims/walk.anim", model);
 		}
 		if (currentKeyStates[SDL_SCANCODE_K]) {
-			animator.playAnim("Anims/kame.anim", &model);
+			animator.playAnim("Anims/kame.anim", model);
 		}
 		if (currentKeyStates[SDL_SCANCODE_I]) {
-			animator.playAnim("Anims/idle.anim", &model);
+			animator.playAnim("Anims/idle.anim", model);
+		}
+		if (currentKeyStates[SDL_SCANCODE_KP_1]) {
+			delete model;
+			model = loadHuman();
+		}
+		if (currentKeyStates[SDL_SCANCODE_KP_2]) {
+			delete model;
+			model = loadSpider();
 		}
 		camera.queryInput(currentKeyStates);
 		camera.update();
-		model.view = camera.view;
-		model.projection = camera.proj;
+		model->view = camera.view;
+		model->projection = camera.proj;
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		model.draw(shader);
+		model->draw(shader);
 		SDL_GL_SwapWindow(env.window);
 	}
+	delete model;
 	return 0;
 }
