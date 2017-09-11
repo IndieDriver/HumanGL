@@ -21,8 +21,8 @@ void Camera::update(){
     deltaTime = (float)currentTime - (float)lastTime;
     lastTime = (float)currentTime;
     if (mouseMoved) {
-	horAngle += 0.000005f * deltaTime * mouseXpos;
-	verAngle += 0.000005f * deltaTime * mouseYpos;
+	horAngle += 0.00005f * deltaTime * mouseXpos;
+	verAngle += 0.00005f * deltaTime * mouseYpos;
 	mouseMoved = false;
     }
     dir = Vec3(cos(verAngle) * sin(horAngle),
@@ -63,5 +63,13 @@ void Camera::queryInput(const uint8_t *keyStates) {
 	Vec3 right = up.cross(dir);
 	Vec3 tmp = right * speed * deltaTime;
 	pos = pos + tmp;
+    }
+    if (keyStates[SDL_SCANCODE_Q]) {
+	Vec3 tmp = up * speed * deltaTime;
+	pos = pos + tmp;
+    }
+    if (keyStates[SDL_SCANCODE_E]) {
+	Vec3 tmp = up * speed * deltaTime;
+	pos = pos - tmp;
     }
 }
