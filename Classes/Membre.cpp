@@ -36,15 +36,13 @@ void 	Membre::applyTransform(Membre *parent, Vec3 jointure) {
 		if (this->_animID != -1 && this->_animID < animations.size()) {
 			this->transform = animations[_animID].updateTransform(transform);
 		}
-
 		Transform newTrans = this->transform;
-
-		newTrans.position -= jointure;
-
-		Matrix scalinInv = modelMatrix ({0,0,0}, {0,0,0}, {1/parent->transform.scale.x, 1/parent->transform.scale.y, 1/parent->transform.scale.z});
+		Vec3 newJoint = {jointure.x * parent->transform.scale.x, jointure.y * parent->transform.scale.y, jointure.z * parent->transform.scale.z};
+		newTrans.position -= newJoint;
+		Matrix scalinInv = scaleMatrix ({1/parent->transform.scale.x, 1/parent->transform.scale.y, 1/parent->transform.scale.z});
 		this->modelMat = scalinInv * parent->modelMat;
 		this->modelMat = modelMatrix(newTrans) * this->modelMat;
-		this->modelMat = modelMatrix ({-this->origin.x,-this->origin.y,-this->origin.z}, {0,0,0}, {1,1,1}) * this->modelMat;
+		this->modelMat = transMatrix ({-this->origin.x,-this->origin.y,-this->origin.z}) * this->modelMat;
 	}
 	for (Child & child : childrens) {
 		child.membre->applyTransform(this, child.jointure);

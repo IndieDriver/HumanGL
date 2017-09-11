@@ -22,3 +22,5 @@ Matrix  viewMatrix(Vec3 pos, Vec3 center, Vec3 up);
 Matrix  projMatrix(float fov, float ratio);
 Matrix  orthoMatrix(float left, float right, float top, float bottom, float n, float f);
 void    printMatrix(float array[16]);
+Matrix  scaleMatrix(Vec3 scale);
+Matrix	transMatrix(Vec3 trans);
