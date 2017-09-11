@@ -62,6 +62,7 @@ int main(int argc, char *argv[]) {
 	animator.playAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
+		model.mainMembre->transform.rotation.y += 0.01;
 		while (SDL_PollEvent(&env.sdlEvent) != 0) {
 			switch (env.sdlEvent.type) {
 				case SDL_QUIT:

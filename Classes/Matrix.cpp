@@ -425,7 +425,7 @@ Matrix projMatrix(float fov, float ratio)
     float	f;
     float	frustum;
 
-    n = 0.1f;
+    n = 1.0f;
     f = 1000.0f;
     frustum = n - f;
     mat.set_identity();
