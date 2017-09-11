@@ -10,7 +10,9 @@ Membre::Membre(Membre const & src) {
 }
 
 Membre::~Membre(void) {
-
+	for (Child & child : this->childrens) {
+		delete child.membre;
+	}
 }
 
 Membre &	Membre::operator=(Membre const & rhs) {

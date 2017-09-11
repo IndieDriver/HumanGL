@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
 	animator.loadAnim("Anims/walk.anim", &model);
 	animator.loadAnim("Anims/kame.anim", &model);
 	animator.loadAnim("Anims/jump.anim", &model);
+	animator.loadAnim("Anims/idle.anim", &model);
 	animator.playAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
