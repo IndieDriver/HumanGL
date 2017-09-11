@@ -27,6 +27,7 @@ Env::Env(int w, int h) {
 			}
 
 			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LEQUAL);
 
 		}
 	}

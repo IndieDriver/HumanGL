@@ -44,8 +44,8 @@ void	Model::draw(const Shader &shader) {
 	mainMembre->applyTransform(nullptr);
 
 
-	//Matrix MVP = getMVP(model, viewMatrix({0,0,70}, {0,0,-1}, {0,1,0}), projMatrix(50, 1208/720));
-	Matrix MVP = getMVP(this->model, viewMatrix({70, 0, 0}, {0, 0, 0}, {0, 1, 0}), this->projection);
+	//Matrix MVP = getMVP(model, this->view, projMatrix(50, 1208/720));
+	Matrix MVP = getMVP(this->model, viewMatrix({70, 0, 70}, {0, 0, 0}, {0, 1, 0}), this->projection);
 
 	std::vector<Matrix> bones;
 	std::vector<Vec4> colors;
