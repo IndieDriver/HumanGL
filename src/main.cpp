@@ -59,10 +59,10 @@ int main(int argc, char *argv[]) {
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
 	animator.loadAnim("Anims/jump.anim", &model);
-	animator.playAnim("Anims/walk.anim", &model);
+	animator.playAnim("Anims/jump.anim", &model);
 
 	while (!quit) {
-		model.mainMembre->transform.rotation.y += 0.01;
+		//model.mainMembre->transform.rotation.y += 0.01;
 		while (SDL_PollEvent(&env.sdlEvent) != 0) {
 			switch (env.sdlEvent.type) {
 				case SDL_QUIT:
@@ -79,6 +79,9 @@ int main(int argc, char *argv[]) {
 			}
 			if (env.sdlEvent.key.keysym.sym == SDLK_j) {
 				animator.playAnim("Anims/jump.anim", &model);
+			}
+			if (env.sdlEvent.key.keysym.sym == SDLK_h) {
+				animator.playAnim("Anims/walk.anim", &model);
 			}
 		}
 		const uint8_t* currentKeyStates = SDL_GetKeyboardState(NULL);
