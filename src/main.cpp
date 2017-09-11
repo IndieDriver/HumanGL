@@ -47,9 +47,6 @@ std::vector<Vertex> data = {
 
 int main(int argc, char *argv[]) {
 	Env env(1280, 720);
-	SDL_ShowCursor(SDL_DISABLE);
-	SDL_SetWindowGrab(env.window, SDL_TRUE);
-	SDL_SetRelativeMouseMode(SDL_TRUE);
 	Camera camera(Vec3(0.0f, 0.0f, 70.0f), env.width, env.height);
 	Animator animator;
 	Skeleton skel;
@@ -86,32 +83,6 @@ int main(int argc, char *argv[]) {
 		camera.update();
 		model.view = camera.view;
 		model.projection = camera.proj;
-		/*
-		if (env.sdlEvent.key.keysym.sym == SDLK_q)
-			model.mainMembre->transform.position.y += 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_e)
-			model.mainMembre->transform.position.y -= 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_a)
-			model.mainMembre->transform.position.x += 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_d)
-			model.mainMembre->transform.position.x -= 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_w)
-			model.mainMembre->transform.position.z -= 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_s)
-			model.mainMembre->transform.position.z += 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_KP_8)
-			model.mainMembre->transform.rotation.x += 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_KP_5)
-			model.mainMembre->transform.rotation.x -= 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_KP_6)
-			model.mainMembre->transform.rotation.y += 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_KP_4)
-			model.mainMembre->transform.rotation.y -= 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_KP_7)
-			model.mainMembre->transform.rotation.z += 0.1;
-		if (env.sdlEvent.key.keysym.sym == SDLK_KP_9)
-			 model.mainMembre->transform.rotation.z -= 0.1; */
-		//}
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		model.draw(shader);

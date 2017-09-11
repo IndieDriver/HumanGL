@@ -10,6 +10,10 @@ Env::Env(int w, int h) {
 		if (this->window == NULL) {
 			std::cout << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 		} else {
+			SDL_ShowCursor(SDL_DISABLE);
+			SDL_WarpMouseInWindow(this->window, w / 2, h / 2);
+			SDL_SetWindowGrab(this->window, SDL_TRUE);
+			SDL_SetRelativeMouseMode(SDL_TRUE);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
