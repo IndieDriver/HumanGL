@@ -74,9 +74,20 @@ void		readJoint(std::fstream &skelFile, Model *model,
 			Child child;
 			child.membre = membreVector[childID];
 			child.jointure = joint;
-			membreVector[parentID]->childrens.push_back(child);
+			if (parentID < membreVector.size())
+				membreVector[parentID]->childrens.push_back(child);
+			else {
+				std::cerr << "Invalid skeleton file" << std::endl;
+				exit(0);
+			}
 		} else {
-			model->mainMembre = membreVector[parentID];
+			if (parentID < membreVector.size())
+				model->mainMembre = membreVector[parentID];
+			else {
+				std::cerr << "Invalid skeleton file" << std::endl;
+				exit(0);
+			}
+
 		}
 	}
 }
@@ -90,5 +101,9 @@ void	Skeleton::loadSkeleton(std::string filename, Model *model) {
 		model->nb_membres = members.size();
 		readJoint(skelFile, model, members);
 		skelFile.close();
+	} else {
+		std::cerr << "Invalid skeleton file " << filename << std::endl;
+		exit(0);
 	}
 }
+
