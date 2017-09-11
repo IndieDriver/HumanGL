@@ -47,7 +47,7 @@ std::vector<Vertex> data = {
 
 int main(int argc, char *argv[]) {
 	Env env(1280, 720);
-	Camera camera(Vec3(0.0f, 0.0f, 70.0f), env.width, env.height);
+	Camera camera(Vec3(0.0f, 0.0f, 120.0f), env.width, env.height);
 	Animator animator;
 	Skeleton skel;
 	Shader shader("Shader/shader.frag", "Shader/shader.vert");
@@ -86,6 +86,9 @@ int main(int argc, char *argv[]) {
 		}
 		if (currentKeyStates[SDL_SCANCODE_K]) {
 			animator.playAnim("Anims/kame.anim", &model);
+		}
+		if (currentKeyStates[SDL_SCANCODE_I]) {
+			animator.playAnim("Anims/idle.anim", &model);
 		}
 		camera.queryInput(currentKeyStates);
 		camera.update();
