@@ -55,9 +55,10 @@ int main(int argc, char *argv[]) {
 	Model model(data);
 	skel.loadSkeleton("human.skel", &model);
 	animator.loadAnim("Anims/walk.anim", &model);
+	animator.loadAnim("Anims/kame.anim", &model);
 	animator.loadAnim("Anims/jump.anim", &model);
 	animator.loadAnim("Anims/idle.anim", &model);
-	animator.playAnim("Anims/idle.anim", &model);
+	animator.playAnim("Anims/walk.anim", &model);
 
 	while (!quit) {
 		//model.mainMembre->transform.rotation.y += 0.01;
@@ -82,6 +83,9 @@ int main(int argc, char *argv[]) {
 		}
 		if (currentKeyStates[SDL_SCANCODE_H]) {
 			animator.playAnim("Anims/walk.anim", &model);
+		}
+		if (currentKeyStates[SDL_SCANCODE_K]) {
+			animator.playAnim("Anims/kame.anim", &model);
 		}
 		camera.queryInput(currentKeyStates);
 		camera.update();
